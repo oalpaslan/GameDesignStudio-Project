@@ -45,12 +45,12 @@ TagManager:
   - name: bg
     uniqueID: 652170701
     locked: 0
+  - name: Foreground
+    uniqueID: 3267251951
+    locked: 0
   - name: Ground
     uniqueID: 1195293309
     locked: 0
   - name: player
     uniqueID: 4258869357
-    locked: 0
-  - name: Foreground
-    uniqueID: 3267251951
     locked: 0
