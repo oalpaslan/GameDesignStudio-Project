@@ -90,15 +90,24 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Object"))
+        GameObject obj = GameObject.FindGameObjectWithTag("Object");
+        float oldSpeed = pSpeed;
+        if (collision.gameObject.CompareTag("Object"))
         {
-            GameObject obj = GameObject.FindGameObjectWithTag("Object");
-
-            obj.transform.Translate(new Vector2(1,0) * Time.deltaTime);
-
+            
+            pSpeed = pSpeed / 3;
+            //obj.transform.Translate(transform.position.x * Time.deltaTime, obj.transform.position.y, 0);
+            obj.transform.position = new Vector2(obj.transform.position.x + pSpeed * Time.deltaTime * 0.001f, obj.transform.position.y);
+            
         }
+        
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        
+        
+    }
     private void WallJump()
     {
         if(isWallSliding)
