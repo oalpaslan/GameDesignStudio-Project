@@ -1,0 +1,4 @@
+repository "SpringJam Project Repo@oalpaslan@cloud"
+  path "/"
+    br "/main"
+    co "/main"
