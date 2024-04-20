@@ -10,29 +10,28 @@ public class PlayerController : MonoBehaviour
     private float jumpForce = 5f;
     [SerializeField]
     private float wallSlidingSpeed = 2f;
+    [SerializeField]
+    private bool isButtonActive = false;
 
-    private bool isOnGround, isOnWall;
-    private bool isWallSliding;
-    public Transform groundCheckPoint, wallCheckPoint;
-    public LayerMask whatIsGround;
-    public LayerMask whatIsWall;
 
-    private bool isFacingRight = true;
-
+    [SerializeField]
+    private float maxDoorHeight;
 
     public Rigidbody2D rBody;
     public CapsuleCollider2D pCollider;
     public SpriteRenderer pRenderer;
-
-    public float collisionRayLength = 0.5f;
-
     private Animator anim;
 
-    public int curBlood, maxBlood;
-    public bool soulMate;
+    //Wall Slide and Jump
 
+    public Transform groundCheckPoint, wallCheckPoint;
+    public LayerMask whatIsGround;
+    public LayerMask whatIsWall;
 
+    private bool isOnGround, isOnWall;
+    private bool isWallSliding;
     private bool isWallJumping;
+
     private float wallJumpingDirection;
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
@@ -62,6 +61,7 @@ public class PlayerController : MonoBehaviour
         WallSlide();
         WallJump();
 
+        OpenDoor();
 
 
     }
@@ -95,18 +95,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject obj = GameObject.FindGameObjectWithTag("Object");
         Rigidbody2D rBodyObj = obj.GetComponent<Rigidbody2D>();
 
         if (collision.gameObject.CompareTag("Object"))
         {
-
-            pSpeed = pSpeed / 3;
-            //obj.transform.Translate(transform.position.x * Time.deltaTime, obj.transform.position.y, 0);
-            //obj.transform.position = new Vector2(obj.transform.position.x + rBody.velocity.x * Time.deltaTime, obj.transform.position.y);
-
             rBodyObj.isKinematic = true;
         }
 
@@ -117,6 +112,53 @@ public class PlayerController : MonoBehaviour
         GameObject obj = GameObject.FindGameObjectWithTag("Object");
         Rigidbody2D rBodyObj = obj.GetComponent<Rigidbody2D>();
         rBodyObj.isKinematic = false;
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Button"))
+        {
+            Debug.Log("tru");
+
+            isButtonActive = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Button"))
+        {
+            Debug.Log("false");
+
+            isButtonActive = false;
+        }
+    }
+
+    private void OpenDoor()
+    {
+
+        GameObject door = GameObject.FindGameObjectWithTag("Door");
+        Rigidbody2D rBodyDoor = door.GetComponent<Rigidbody2D>();
+        if (door != null)
+        {
+            if (isButtonActive && Input.GetButtonDown("Interact"))
+            {
+                Debug.Log("interacted");
+                if (rBodyDoor.velocity.y <= 0 && door.transform.position.y < maxDoorHeight)
+                    rBodyDoor.velocity = new Vector2(0, 2);
+
+            }
+            else if (!isButtonActive)
+            {
+                rBodyDoor.velocity = Vector2.zero;
+
+            }
+            if (door.transform.position.y > maxDoorHeight)
+            {
+                rBodyDoor.velocity = Vector2.zero;
+            }
+        }
     }
     private void WallJump()
     {
@@ -165,14 +207,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void Flip()
-    //{
-    //    if(isFacingRight && Input.GetAxisRaw("Horizontal") < 0f || !isFacingRight && Input.GetAxisRaw("Horizontal") > 0f)
-    //    {
-    //        isFacingRight = !isFacingRight;
-    //        Vector3 localScale = transform.localScale;
-    //        localScale.x *= -1f;
-    //        transform.localScale = localScale;
-    //    }
-    //}
 }
