@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private float wallJumpingDuration = 0.4f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,10 +51,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rBody.velocity = new Vector2(pSpeed * Input.GetAxis("Horizontal"), rBody.velocity.y);
-        anim.SetFloat("Speed", Mathf.Abs(rBody.velocity.x));
-        anim.SetBool("IsWallSlide", isWallSliding);
-        anim.SetBool("IsOnGround", isOnGround);
+        pSpeed = 5f;
+
+        Movement();
 
         isOnGround = Physics2D.OverlapCircle(groundCheckPoint.position, .05f, whatIsGround); //OverlapCircle tells if a circle in a position overlaps with another collider
 
@@ -62,60 +62,70 @@ public class PlayerController : MonoBehaviour
         WallSlide();
         WallJump();
 
+
+
+    }
+
+    private void Movement()
+    {
+
+        rBody.velocity = new Vector2(pSpeed * Input.GetAxis("Horizontal"), rBody.velocity.y);
+        anim.SetFloat("Speed", Mathf.Abs(rBody.velocity.x));
+        anim.SetBool("IsWallSlide", isWallSliding);
+        anim.SetBool("IsOnGround", isOnGround);
+
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
             rBody.velocity = new Vector2(rBody.velocity.x, jumpForce);
         }
 
-        if(Input.GetAxis("Horizontal") < 0)
+        if (Input.GetAxis("Horizontal") < 0)
         {
             pRenderer.flipX = true;
             wallCheckPoint.transform.position = new Vector2(gameObject.transform.position.x - 0.2f, transform.position.y);
-            wallCheckPoint.transform.rotation = new Quaternion(0, 180, 0,0);
+            wallCheckPoint.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
-        else if(Input.GetAxis("Horizontal") > 0)
+        else if (Input.GetAxis("Horizontal") > 0)
         {
             pRenderer.flipX = false;
             wallCheckPoint.transform.position = new Vector2(gameObject.transform.position.x + 0.2f, transform.position.y);
             wallCheckPoint.transform.rotation = new Quaternion(0, 0, 0, 0);
 
         }
-
     }
 
-    private void VampireSpeed()
-    {
-        
-    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject obj = GameObject.FindGameObjectWithTag("Object");
-        float oldSpeed = pSpeed;
+        Rigidbody2D rBodyObj = obj.GetComponent<Rigidbody2D>();
+
         if (collision.gameObject.CompareTag("Object"))
         {
-            
+
             pSpeed = pSpeed / 3;
             //obj.transform.Translate(transform.position.x * Time.deltaTime, obj.transform.position.y, 0);
-            obj.transform.position = new Vector2(obj.transform.position.x + pSpeed * Time.deltaTime * 0.001f, obj.transform.position.y);
-            
+            //obj.transform.position = new Vector2(obj.transform.position.x + rBody.velocity.x * Time.deltaTime, obj.transform.position.y);
+
+            rBodyObj.isKinematic = true;
         }
-        
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        
-        
+        GameObject obj = GameObject.FindGameObjectWithTag("Object");
+        Rigidbody2D rBodyObj = obj.GetComponent<Rigidbody2D>();
+        rBodyObj.isKinematic = false;
     }
     private void WallJump()
     {
-        if(isWallSliding)
+        if (isWallSliding)
         {
-            isWallJumping = false;  
+            isWallJumping = false;
             wallJumpingDirection = -transform.localRotation.x;
             wallJumpingCounter = wallJumpingTime;
-            
+
             CancelInvoke(nameof(StopWallJumping));
         }
         else
@@ -124,13 +134,13 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
-            isWallJumping= true;
+            isWallJumping = true;
             rBody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
-            if(transform.localScale.x != wallJumpingDirection)
+            if (transform.localScale.x != wallJumpingDirection)
             {
-                pRenderer.flipX=!pRenderer.flipX;
+                pRenderer.flipX = !pRenderer.flipX;
             }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
@@ -139,12 +149,12 @@ public class PlayerController : MonoBehaviour
 
     private void StopWallJumping()
     {
-        isWallJumping=false;
+        isWallJumping = false;
     }
 
     private void WallSlide()
     {
-        if(isOnWall && !isOnGround)
+        if (isOnWall && !isOnGround)
         {
             isWallSliding = true;
             rBody.velocity = new Vector2(rBody.velocity.x, 0);
