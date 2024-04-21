@@ -1,0 +1,539 @@
+fileFormatVersion: 2
+guid: bec17b94bafefc047a217e4399501ac7
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData: []
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 9979462
+    name: Plain Paper UI
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Plain Paper UI_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 6844cd059403cf745b0d51de37f4e237
+    - name: Plain Paper UI_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 95cec1cd44233234892c4e59897b68e7
+    - name: Plain Paper UI_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 281c735765c1cf643a19e9df15bcee28
+    - name: Plain Paper UI_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 2ce46cb2b4892574fbf039711977a1a2
+    - name: Plain Paper UI_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 5256e09d642d150479252d63599926f6
+    - name: Plain Paper UI_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: e083fa25c67ba8549b8878fd857ee5c5
+    - name: Plain Paper UI_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 9845d68d113bd15469dd95d7fc0aaf2f
+    - name: Plain Paper UI_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 4487649f67dc4c940a5de4ef40afc4d7
+    - name: Plain Paper UI_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 8b726b937a6cf5d4abfb8cd57d33e9fa
+    - name: Plain Paper UI_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: b443581aedc386c48998b62220b8f3c0
+    - name: Plain Paper UI_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: e3f1de889a8ff8d4cb9d49d89050638a
+    - name: Plain Paper UI_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: c7ceafe408d0ef145846372a6712f1d5
+    - name: Plain Paper UI_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 89266b51b4debe84ba24ed46e8bea934
+    - name: Plain Paper UI_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 95a2a0e56d20faa45b45a043acd0b5b3
+    - name: Plain Paper UI_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 8ccd622ef944fed429edd51e5fd1377b
+    - name: Plain Paper UI_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: cf9f1e4ad2c02a343a610c3ce534cd29
+    - name: Plain Paper UI_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: c209ffceff9399a4290a1b1337d7da1b
+    - name: Plain Paper UI_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 48cf6fd4e149c4648b914875dd67b69b
+    - name: Plain Paper UI_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 60b12777f7606314b928489b52b93467
+    - name: Plain Paper UI_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: e89e4f06a58eb594eba89d019ca1af16
+    - name: Plain Paper UI_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 0123a1178b0648f4991309be3b5cbae1
+    - name: Plain Paper UI_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 17bf34c75aa5d1f4ab9a70ec8290141f
+    - name: Plain Paper UI_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 026b3e0d7ae0a3c47b30fd0ccbe8b730
+    - name: Plain Paper UI_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: f43592842323c004fac49e25594bc0ac
+    - name: Plain Paper UI_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 9db35f72949e3c242b326a1f24daef12
+    - name: Plain Paper UI_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: b9c87486b2d7e944084cf0e7ebbb781b
+    - name: Plain Paper UI_Frame_26
+      frameIndex: 26
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 69e6f38d179ce6c4490c9a82aece8b02
+    - name: Plain Paper UI_Frame_27
+      frameIndex: 27
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 7b013b992f3d9064b947c8c7525c5065
+    - name: Plain Paper UI_Frame_28
+      frameIndex: 28
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 4216ed3685ea4d04a9d65cfc165081af
+    - name: Plain Paper UI_Frame_29
+      frameIndex: 29
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 32670b684076bbd4b95585f48a76b9e0
+    - name: Plain Paper UI_Frame_30
+      frameIndex: 30
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: a528403d822c605429d288e194ab75f1
+    - name: Plain Paper UI_Frame_31
+      frameIndex: 31
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: cc477a11558565144abab7c8027b1181
+    - name: Plain Paper UI_Frame_32
+      frameIndex: 32
+      cellRect:
+        x: 161
+        y: 95
+        width: 5597
+        height: 3641
+      spriteId: 5fa31df82ff41c44fb48e64a39dc526a
+    - name: Plain Paper UI_Frame_33
+      frameIndex: 33
+      cellRect:
+        x: 161
+        y: 95
+        width: 5358
+        height: 3641
+      spriteId: 0a84b01fd7d7bde46888d55cadc62378
+    - name: Plain Paper UI_Frame_34
+      frameIndex: 34
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: 535cceb83d8ba1343820d35f405c5d08
+    - name: Plain Paper UI_Frame_35
+      frameIndex: 35
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: 59de973b22ddc304db43601ed62a284b
+    - name: Plain Paper UI_Frame_36
+      frameIndex: 36
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: c84df83c815932a4b874ca38106e8026
+    - name: Plain Paper UI_Frame_37
+      frameIndex: 37
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: 7475b7cc689d3d84e92af6fd5ec338cf
+    - name: Plain Paper UI_Frame_38
+      frameIndex: 38
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: ba137fb293d38554a906f7fca317bab9
+    - name: Plain Paper UI_Frame_39
+      frameIndex: 39
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: 16478ebccb9b7454c98fcd2bee90ddea
+    - name: Plain Paper UI_Frame_40
+      frameIndex: 40
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: d7af7c0a3c9ec944bad65979969ea2ee
+    - name: Plain Paper UI_Frame_41
+      frameIndex: 41
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: f470e88dbeaa44948b5d0bd6f0c2aa15
+    - name: Plain Paper UI_Frame_42
+      frameIndex: 42
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: 0c179e792b516f84ebd81fbd4c61c516
+    - name: Plain Paper UI_Frame_43
+      frameIndex: 43
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: feaddf936cdfbdf4b9b7d27d25dbc774
+    - name: Plain Paper UI_Frame_44
+      frameIndex: 44
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: a6a9af88bc3e9ce4a994d1b2e644793b
+    - name: Plain Paper UI_Frame_45
+      frameIndex: 45
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: db5f5c04b7cfe994089edc72f47fe948
+    - name: Plain Paper UI_Frame_46
+      frameIndex: 46
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: aafe5212b7153ee4f8af0b7228d41bcb
+    - name: Plain Paper UI_Frame_47
+      frameIndex: 47
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: 2e5bdf98a5d8a0f4cb78c6961973a26d
+    - name: Plain Paper UI_Frame_48
+      frameIndex: 48
+      cellRect:
+        x: 161
+        y: 95
+        width: 5333
+        height: 3641
+      spriteId: 06964a0af6ce30c45b75208144d3618d
+    - name: Plain Paper UI_Frame_49
+      frameIndex: 49
+      cellRect:
+        x: 161
+        y: 95
+        width: 2415
+        height: 3641
+      spriteId: 9588825ac99669345aa10e8d1b1b043b
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 2720, y: 3807}
