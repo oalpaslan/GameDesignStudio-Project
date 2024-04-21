@@ -7,6 +7,9 @@ TagManager:
   - Wall
   - Ground
   - Object
+  - Button
+  - Door
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
 
-    // Start is called before the first frame update
     void Start()
     {
         pRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -47,7 +46,6 @@ public class PlayerController : MonoBehaviour
         pCollider = GetComponent<CapsuleCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         pSpeed = 5f;
