@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,13 +11,15 @@ public class PlayerController : MonoBehaviour
     private float jumpForce = 5f;
     [SerializeField]
     private float wallSlidingSpeed = 2f;
-    [SerializeField]
-    private bool isButtonActive = false;
 
 
     [SerializeField]
     private float maxDoorHeight;
 
+    [SerializeField]
+    private float minHeightBeforeDeath;
+
+    private bool isButtonActive = false;
     public Rigidbody2D rBody;
     public CapsuleCollider2D pCollider;
     public SpriteRenderer pRenderer;
@@ -61,7 +64,8 @@ public class PlayerController : MonoBehaviour
 
         OpenDoor();
 
-
+        if (gameObject.transform.position.y < minHeightBeforeDeath)
+            Reset();
     }
 
     private void Movement()
@@ -92,6 +96,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
