@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController2 : MonoBehaviour
 {
     [SerializeField]
-    private float pSpeed = 8f;
+    private float pSpeed = 5f;
     [SerializeField]
-    private float jumpForce = 5f;
+    private float jumpForce = 15f;
     [SerializeField]
     private float wallSlidingSpeed = 2f;
-
+    [SerializeField]
+    private float VSpeedTick = 3;
 
     [SerializeField]
     private float maxDoorHeight;
@@ -49,16 +51,31 @@ public class PlayerController : MonoBehaviour
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
 
+    //Warp
+    private GameObject curWarp;
+
+    //Powers
+    private bool vVisionStatus=false;
+    private bool vSpeedStatus=false;
+    private bool hiddenLayerStatus = true;
+    private float VSpeedStart = 0;
+    private float VSpeedUpdate = 3;
+
+    private GameObject hLayer;
+
     void Start()
     {
         pRenderer = gameObject.GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         pCollider = GetComponent<CapsuleCollider2D>();
+        hLayer = GameObject.FindGameObjectWithTag("Hidden");
     }
 
     void Update()
     {
-        pSpeed = 5f;
+        //pSpeed = 5f;
+
+        determineSpeed();
 
         Movement();
 
@@ -70,9 +87,13 @@ public class PlayerController : MonoBehaviour
         WallJump();
 
         OpenDoor();
+        UseWarp();
 
-        if (gameObject.transform.position.y < minHeightBeforeDeath)
-            Reset();
+        //power toogles
+        vVision();
+        vSpeed();
+
+        checkDeath(); // makes all death checks (height and HP)
     }
 
     private void Movement()
@@ -144,20 +165,16 @@ public class PlayerController : MonoBehaviour
         {
             //Trigger dialogue
             //Use Panel
-            //GameObject.FindGameObjectWithTag("SoulmateDialogue")
-            //    {
-
-            //}
         }
-        else if (collision.gameObject.CompareTag("ArcheologistDialogue"))
+
+        else if (collision.gameObject.CompareTag("Warp"))
         {
-
+            curWarp = collision.gameObject;
         }
-        else if (collision.gameObject.CompareTag("ArcheologistDialogue"))
+        else if (collision.gameObject.CompareTag("Hidden"))
         {
-
+            toggleHidden(false);
         }
-
 
     }
 
@@ -169,15 +186,26 @@ public class PlayerController : MonoBehaviour
 
             isButtonActive = false;
         }
+        if (collision.CompareTag("Warp"))
+        {
+            if (collision.gameObject == curWarp)
+            {
+                curWarp = null;
+            }
+        }
+        if (collision.gameObject.CompareTag("Hidden"))
+        {
+            toggleHidden(true);
+        }
     }
 
     private void OpenDoor()
     {
 
         GameObject door = GameObject.FindGameObjectWithTag("Door");
-        Rigidbody2D rBodyDoor = door.GetComponent<Rigidbody2D>();
         if (door != null)
         {
+        Rigidbody2D rBodyDoor = door.GetComponent<Rigidbody2D>();
             if (isButtonActive && Input.GetButtonDown("Interact"))
             {
                 Debug.Log("interacted");
@@ -193,6 +221,19 @@ public class PlayerController : MonoBehaviour
             if (door.transform.position.y > maxDoorHeight)
             {
                 rBodyDoor.velocity = Vector2.zero;
+            }
+        }
+    }
+
+    private void UseWarp()
+    {
+        if (curWarp != null)
+        {
+            if (Input.GetButtonDown("Interact"))
+            {
+                Debug.Log("interacted");
+                transform.position = curWarp.GetComponent<getDest>().getD().position;
+
             }
         }
     }
@@ -242,5 +283,132 @@ public class PlayerController : MonoBehaviour
             isWallSliding = false;
         }
     }
+    
+    private bool useBlood(int bSpent)
+    {
+        if(bloodAmount <= bSpent)
+        {
+            return false;
+        }
+        else
+        {
+            bloodAmount -= bSpent;
+            //updateBloodUI();
+            return true;
+        }
+    }
+
+    private void checkDeath()
+    {
+        if(bloodAmount <= 0)
+        {
+            Reset();
+        }
+        if(gameObject.transform.position.y < minHeightBeforeDeath)
+            Reset();
+    }
+    private void vVision()
+    {
+        GameObject vvTrue = GameObject.FindGameObjectWithTag("vvTrue");
+
+        if (Input.GetButtonDown("Vision"))
+        {
+            if (vVisionStatus == false)
+            {
+                if (useBlood(1)) {  //determine how much blood will be used to open
+                    vVisionStatus = true;
+                    toggleHidden(false);
+                    vvTrue.SetActive(true);
+                }
+            }
+            else
+            {
+                vVisionStatus = false;
+                toggleHidden(true);
+                vvTrue.SetActive(false);
+            }
+        }
+
+
+    }
+
+    private void vSpeed()
+    {
+        if (Input.GetButtonDown("Speed"))
+        {
+            if (!vSpeedStatus)
+            {
+                if (!useBlood(3)) return;
+                vSpeedStatus = true;
+                VSpeedStart = Time.timeSinceLevelLoad;
+
+            }
+            else
+            {
+                vSpeedStatus = false;
+                VSpeedStart = 0;
+                VSpeedUpdate = VSpeedTick;
+            }
+        }
+        
+    }
+
+    private void toggleHidden(bool hidden)
+    {
+        
+        //hiddenLayerStatus true means it is showing (hiding the map)
+
+        if(hiddenLayerStatus && !hidden) //hidden layer is active and there is a request to disable it
+        {
+            //hLayer.SetActive(false);
+            hLayer.transform.GetComponent<TilemapRenderer>().enabled= false;
+            hiddenLayerStatus = false;
+
+
+            // I need to make an Update i think
+
+            return;
+        }
+
+        if(!hiddenLayerStatus && hidden) //hidden layer is closed and there is a request to enable it
+        {
+            //hLayer.SetActive(true);
+            hLayer.transform.GetComponent<TilemapRenderer>().enabled = true;
+
+            hiddenLayerStatus = true;
+            // I need to make an Update i think
+
+            return;
+        }
+    }
+
+    private void determineSpeed()
+    {
+        if(!vSpeedStatus)
+        {
+            pSpeed = 5f;
+        }
+        else
+        {
+            float curTime= Time.timeSinceLevelLoad;
+            VSpeedUpdate -= curTime;
+            if (VSpeedUpdate <= 0)
+            {
+                VSpeedUpdate= VSpeedTick;
+                if (!useBlood(3))
+                {
+                    vSpeedStatus= false;
+                    pSpeed = 5f;
+                    return;
+                }
+            }
+            
+            pSpeed = 8f;
+        }
+    }
+
+    
+
+
 
 }
