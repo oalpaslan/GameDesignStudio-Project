@@ -20,15 +20,13 @@ public class Stompbox : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("Hit enemy");
             collision.gameObject.transform.parent.gameObject.SetActive(false);
         }
         else if (collision.CompareTag("Crumble"))
         {
             StartCoroutine(WaitBeforeCrumble(collision));
-
-
         }
+
     }
 
     IEnumerator WaitBeforeCrumble(Collider2D col)

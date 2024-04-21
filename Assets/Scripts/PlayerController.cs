@@ -19,6 +19,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float minHeightBeforeDeath;
 
+    [SerializeField]
+    private float bloodAmount;
+    [SerializeField]
+    private float damage;
+    [SerializeField]
+    private float spendBlood;
+
     private bool isButtonActive = false;
     public Rigidbody2D rBody;
     public CapsuleCollider2D pCollider;
@@ -110,6 +117,10 @@ public class PlayerController : MonoBehaviour
         {
             rBodyObj.isKinematic = true;
         }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            bloodAmount -= damage;
+        }
 
     }
 
@@ -129,6 +140,12 @@ public class PlayerController : MonoBehaviour
 
             isButtonActive = true;
         }
+        else if (collision.gameObject.CompareTag("Soulmate"))
+        {
+            //Trigger dialogue
+            //Use Panel
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
