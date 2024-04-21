@@ -10,6 +10,9 @@ TagManager:
   - Button
   - Door
   - Enemy
+  - Hidden
+  - vvTrue
+  - Warp
   layers:
   - Default
   - TransparentFX
@@ -55,4 +58,7 @@ TagManager:
     locked: 0
   - name: player
     uniqueID: 4258869357
+    locked: 0
+  - name: fore
+    uniqueID: 3703738917
     locked: 0
