@@ -5,30 +5,24 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
-
-  - Ground
-  - Object
-  - Button
-  - Door
-  - Enemy
   - Hidden
-  - vvTrue
   - Warp
-
+  - Object
+  - vvTrue
+  - Scene
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Wall
+  - 
   - Water
   - UI
-  - Foreground
+  - Wall
   - Ground
+  - fGround
+  - tfGround
   - Player
-  - tForeground
   - Background
-
-  - 
   - 
   - 
   - 
@@ -51,26 +45,23 @@ TagManager:
   - 
   m_SortingLayers:
   - name: bg
-    uniqueID: 652170701
+    uniqueID: 4148070285
     locked: 0
   - name: bg2
-    uniqueID: 674067227
+    uniqueID: 1227292903
     locked: 0
   - name: bg3
-    uniqueID: 3886214423
+    uniqueID: 2004130675
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Foreground
-    uniqueID: 3267251951
-    locked: 0
-  - name: Ground
-    uniqueID: 1195293309
+  - name: ground
+    uniqueID: 722263833
     locked: 0
   - name: player
-    uniqueID: 4258869357
+    uniqueID: 961693735
     locked: 0
-  - name: fore
-    uniqueID: 3703738917
+  - name: foreground
+    uniqueID: 4016421839
     locked: 0

@@ -86,7 +86,7 @@ public class PlayerController2 : MonoBehaviour
         WallSlide();
         WallJump();
 
-        OpenDoor();
+        //OpenDoor();
         UseWarp();
 
         //power toogles
@@ -127,6 +127,13 @@ public class PlayerController2 : MonoBehaviour
     private void Reset()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void changeScene(string scene)
+    {
+        Debug.Log(scene);
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
+        SceneManager.LoadScene(scene);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -175,6 +182,11 @@ public class PlayerController2 : MonoBehaviour
         {
             toggleHidden(false);
         }
+        if (collision.gameObject.CompareTag("Scene"))
+        {
+
+            changeScene(collision.gameObject.name);
+        }
 
     }
 
@@ -199,31 +211,31 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
-    private void OpenDoor()
-    {
+    //private void OpenDoor()
+    //{
 
-        GameObject door = GameObject.FindGameObjectWithTag("Door");
-        if (door != null)
-        {
-        Rigidbody2D rBodyDoor = door.GetComponent<Rigidbody2D>();
-            if (isButtonActive && Input.GetButtonDown("Interact"))
-            {
-                Debug.Log("interacted");
-                if (rBodyDoor.velocity.y <= 0 && door.transform.position.y < maxDoorHeight)
-                    rBodyDoor.velocity = new Vector2(0, 2);
+    //    GameObject door = GameObject.FindGameObjectWithTag("Door");
+    //    if (door != null)
+    //    {
+    //    Rigidbody2D rBodyDoor = door.GetComponent<Rigidbody2D>();
+    //        if (isButtonActive && Input.GetButtonDown("Interact"))
+    //        {
+    //            Debug.Log("interacted");
+    //            if (rBodyDoor.velocity.y <= 0 && door.transform.position.y < maxDoorHeight)
+    //                rBodyDoor.velocity = new Vector2(0, 2);
 
-            }
-            else if (!isButtonActive)
-            {
-                rBodyDoor.velocity = Vector2.zero;
+    //        }
+    //        else if (!isButtonActive)
+    //        {
+    //            rBodyDoor.velocity = Vector2.zero;
 
-            }
-            if (door.transform.position.y > maxDoorHeight)
-            {
-                rBodyDoor.velocity = Vector2.zero;
-            }
-        }
-    }
+    //        }
+    //        if (door.transform.position.y > maxDoorHeight)
+    //        {
+    //            rBodyDoor.velocity = Vector2.zero;
+    //        }
+    //    }
+    //}
 
     private void UseWarp()
     {
@@ -336,6 +348,7 @@ public class PlayerController2 : MonoBehaviour
     {
         if (Input.GetButtonDown("Speed"))
         {
+            Debug.Log("basti");
             if (!vSpeedStatus)
             {
                 if (!useBlood(3)) return;
@@ -402,8 +415,8 @@ public class PlayerController2 : MonoBehaviour
                     return;
                 }
             }
-            
-            pSpeed = 8f;
+
+            pSpeed = 10f;
         }
     }
 
