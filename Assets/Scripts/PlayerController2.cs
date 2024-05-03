@@ -6,8 +6,13 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController2 : MonoBehaviour
 {
+
+    public static PlayerController2 instance;
+
+    //Movement
+
     [SerializeField]
-    private float pSpeed = 5f;
+    private float baseSpeed, pSpeed = 5f;
     [SerializeField]
     private float jumpForce = 15f;
     [SerializeField]
@@ -22,11 +27,7 @@ public class PlayerController2 : MonoBehaviour
     private float minHeightBeforeDeath;
 
     [SerializeField]
-    private float bloodAmount;
-    [SerializeField]
-    private float damage;
-    [SerializeField]
-    private float spendBlood;
+    public float bloodAmount, damage;
 
     private bool isButtonActive = false;
     public Rigidbody2D rBody;
@@ -37,17 +38,13 @@ public class PlayerController2 : MonoBehaviour
     //Wall Slide and Jump
 
     public Transform groundCheckPoint, wallCheckPoint;
-    public LayerMask whatIsGround;
-    public LayerMask whatIsWall;
+    public LayerMask whatIsGround, whatIsWall;
 
-    private bool isOnGround, isOnWall;
-    private bool isWallSliding;
-    private bool isWallJumping;
+    private bool isOnGround, isOnWall, isWallSliding, isWallJumping;
 
-    private float wallJumpingDirection;
-    private float wallJumpingTime = 0.2f;
-    private float wallJumpingCounter;
-    private float wallJumpingDuration = 0.4f;
+    private float wallJumpingDirection, wallJumpingCounter,
+                    wallJumpingTime = 0.2f,
+                    wallJumpingDuration = 0.4f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
 
@@ -55,14 +52,21 @@ public class PlayerController2 : MonoBehaviour
     private GameObject curWarp;
 
     //Powers
-    private bool vVisionStatus=false;
-    private bool vSpeedStatus=false;
-    private bool hiddenLayerStatus = true;
-    private float VSpeedStart = 0;
-    private float VSpeedUpdate = 3;
+    private bool isSpendingBlood = false,
+                isVampVisEnabled = false,
+                isVampSpdEnabled = false,
+                hiddenLayerStatus = true;
+
+    private int bloodInUse = 0;
 
     private GameObject hLayer;
 
+    private bool isAscending, isDecending;
+
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         pRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -75,7 +79,6 @@ public class PlayerController2 : MonoBehaviour
     {
         //pSpeed = 5f;
 
-        determineSpeed();
 
         Movement();
 
@@ -90,8 +93,7 @@ public class PlayerController2 : MonoBehaviour
         UseWarp();
 
         //power toogles
-        vVision();
-        vSpeed();
+        //vVision();
 
         checkDeath(); // makes all death checks (height and HP)
     }
@@ -103,6 +105,8 @@ public class PlayerController2 : MonoBehaviour
         anim.SetFloat("Speed", Mathf.Abs(rBody.velocity.x));
         anim.SetBool("IsWallSlide", isWallSliding);
         anim.SetBool("IsOnGround", isOnGround);
+        anim.SetBool("IsAscending", isAscending);
+        anim.SetBool("IsDecending", isDecending);
 
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
@@ -120,7 +124,37 @@ public class PlayerController2 : MonoBehaviour
             pRenderer.flipX = false;
             wallCheckPoint.transform.position = new Vector2(gameObject.transform.position.x + 0.2f, transform.position.y);
             wallCheckPoint.transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+        if (Input.GetButtonDown("Speed"))
+        {
+            isVampSpdEnabled = !isVampSpdEnabled;
+            VampSpeed(isVampSpdEnabled);
 
+        }
+        if (bloodInUse > 0 && isSpendingBlood)
+        {
+
+            StartCoroutine(useBlood(bloodInUse));
+
+
+        }
+
+        if (rBody.velocity.y > 1)
+        {
+            isAscending = true;
+            isDecending = false;
+        }
+        else if (rBody.velocity.y < -1)
+        {
+            isAscending = false;
+            isDecending = true;
+
+        }
+        else
+
+        {
+            isAscending = false;
+            isDecending = false;
         }
     }
 
@@ -131,7 +165,6 @@ public class PlayerController2 : MonoBehaviour
 
     private void changeScene(string scene)
     {
-        Debug.Log(scene);
         //SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
         SceneManager.LoadScene(scene);
     }
@@ -145,10 +178,10 @@ public class PlayerController2 : MonoBehaviour
         {
             rBodyObj.isKinematic = true;
         }
-        else if (collision.gameObject.CompareTag("Enemy"))
-        {
-            bloodAmount -= damage;
-        }
+        //else if (collision.gameObject.CompareTag("Enemy"))
+        //{
+        //    bloodAmount -= damage;
+        //}
 
     }
 
@@ -164,15 +197,13 @@ public class PlayerController2 : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Button"))
         {
-            Debug.Log("tru");
-
             isButtonActive = true;
         }
-        else if (collision.gameObject.CompareTag("Soulmate"))
-        {
-            //Trigger dialogue
-            //Use Panel
-        }
+        //else if (collision.gameObject.CompareTag("Soulmate"))
+        //{
+        //    //Trigger dialogue
+        //    //Use Panel
+        //}
 
         else if (collision.gameObject.CompareTag("Warp"))
         {
@@ -194,8 +225,6 @@ public class PlayerController2 : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Button"))
         {
-            Debug.Log("false");
-
             isButtonActive = false;
         }
         if (collision.CompareTag("Warp"))
@@ -243,9 +272,7 @@ public class PlayerController2 : MonoBehaviour
         {
             if (Input.GetButtonDown("Interact"))
             {
-                Debug.Log("interacted");
                 transform.position = curWarp.GetComponent<getDest>().getD().position;
-
             }
         }
     }
@@ -295,86 +322,88 @@ public class PlayerController2 : MonoBehaviour
             isWallSliding = false;
         }
     }
-    
-    private bool useBlood(int bSpent)
+
+    private IEnumerator useBlood(int bSpent)
     {
-        if(bloodAmount <= bSpent)
+        Debug.Log("useBlood");
+        bloodInUse = 0;
+        while (bloodAmount > bSpent && isSpendingBlood)
         {
-            return false;
-        }
-        else
-        {
+
             bloodAmount -= bSpent;
+
             //updateBloodUI();
-            return true;
+            yield return new WaitForSeconds(1);
         }
+        isSpendingBlood = false;
     }
+
 
     private void checkDeath()
     {
-        if(bloodAmount <= 0)
+        if (bloodAmount <= 0)
         {
-            Reset();
+            //Reset();
         }
-        if(gameObject.transform.position.y < minHeightBeforeDeath)
+        if (gameObject.transform.position.y < minHeightBeforeDeath)
             Reset();
     }
-    private void vVision()
-    {
-        GameObject vvTrue = GameObject.FindGameObjectWithTag("vvTrue");
+    //private void vVision()
+    //{
+    //    GameObject vvTrue = GameObject.FindGameObjectWithTag("vvTrue");
 
-        if (Input.GetButtonDown("Vision"))
+    //    if (Input.GetButtonDown("Vision"))
+    //    {
+    //        if (isVampVisEnabled == false)
+    //        {
+    //            if (useBlood(1))
+    //            {  //determine how much blood will be used to open
+    //                isVampVisEnabled = true;
+    //                toggleHidden(false);
+    //                vvTrue.SetActive(true);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            isVampVisEnabled = false;
+    //            toggleHidden(true);
+    //            vvTrue.SetActive(false);
+    //        }
+    //    }
+
+
+    //}
+
+    private void VampSpeed(bool vSpeedEnabled)
+    {
+        if (vSpeedEnabled && bloodInUse < bloodAmount)
         {
-            if (vVisionStatus == false)
-            {
-                if (useBlood(1)) {  //determine how much blood will be used to open
-                    vVisionStatus = true;
-                    toggleHidden(false);
-                    vvTrue.SetActive(true);
-                }
-            }
-            else
-            {
-                vVisionStatus = false;
-                toggleHidden(true);
-                vvTrue.SetActive(false);
-            }
+
+            Debug.Log("vSpeedEnabled");
+            pSpeed = 10;
+            bloodInUse = 3;
+            isSpendingBlood = true;
+        }
+        else
+        {
+            Debug.Log("vSpeedDisabled");
+
+            isSpendingBlood = false;
+            bloodInUse = 0;
+            pSpeed = 5;
         }
 
-
-    }
-
-    private void vSpeed()
-    {
-        if (Input.GetButtonDown("Speed"))
-        {
-            Debug.Log("basti");
-            if (!vSpeedStatus)
-            {
-                if (!useBlood(3)) return;
-                vSpeedStatus = true;
-                VSpeedStart = Time.timeSinceLevelLoad;
-
-            }
-            else
-            {
-                vSpeedStatus = false;
-                VSpeedStart = 0;
-                VSpeedUpdate = VSpeedTick;
-            }
-        }
-        
     }
 
     private void toggleHidden(bool hidden)
     {
-        
+
         //hiddenLayerStatus true means it is showing (hiding the map)
 
-        if(hiddenLayerStatus && !hidden) //hidden layer is active and there is a request to disable it
+        if (hiddenLayerStatus && !hidden) //hidden layer is active and there is a request to disable it
         {
             //hLayer.SetActive(false);
-            hLayer.transform.GetComponent<TilemapRenderer>().enabled= false;
+            hLayer.transform.GetComponent<TilemapRenderer>().enabled = false;
             hiddenLayerStatus = false;
 
 
@@ -383,7 +412,7 @@ public class PlayerController2 : MonoBehaviour
             return;
         }
 
-        if(!hiddenLayerStatus && hidden) //hidden layer is closed and there is a request to enable it
+        if (!hiddenLayerStatus && hidden) //hidden layer is closed and there is a request to enable it
         {
             //hLayer.SetActive(true);
             hLayer.transform.GetComponent<TilemapRenderer>().enabled = true;
@@ -395,33 +424,9 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
-    private void determineSpeed()
-    {
-        if(!vSpeedStatus)
-        {
-            pSpeed = 5f;
-        }
-        else
-        {
-            float curTime= Time.timeSinceLevelLoad;
-            VSpeedUpdate -= curTime;
-            if (VSpeedUpdate <= 0)
-            {
-                VSpeedUpdate= VSpeedTick;
-                if (!useBlood(3))
-                {
-                    vSpeedStatus= false;
-                    pSpeed = 5f;
-                    return;
-                }
-            }
-
-            pSpeed = 10f;
-        }
-    }
-
-    
-
-
-
 }
+
+
+
+
+

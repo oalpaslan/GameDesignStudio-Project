@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     public LayerMask whatIsWall;
 
-    private bool isOnGround, isOnWall;
+    public bool isOnGround, isOnWall;
     private bool isWallSliding;
     private bool isWallJumping;
 
@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private float wallJumpingDuration = 0.4f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
+    private bool isAscending, isDecending;
 
     void Start()
     {
@@ -58,6 +59,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        anim.SetBool("IsAscending", isAscending);
+        anim.SetBool("IsDecending", isDecending);
         pSpeed = 5f;
 
         Movement();
@@ -73,7 +77,10 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.transform.position.y < minHeightBeforeDeath)
             Reset();
+
+
     }
+
 
     private void Movement()
     {
@@ -100,6 +107,25 @@ public class PlayerController : MonoBehaviour
             wallCheckPoint.transform.position = new Vector2(gameObject.transform.position.x + 0.2f, transform.position.y);
             wallCheckPoint.transform.rotation = new Quaternion(0, 0, 0, 0);
 
+        }
+
+        if (rBody.velocity.y > 0)
+        {
+            Debug.Log(rBody.velocity.y);
+            isAscending = true;
+            isDecending = false;
+        }
+        else if (rBody.velocity.y < 0)
+        {
+            isAscending = false;
+            isDecending = true;
+
+        }
+        else
+
+        {
+            isAscending = false;
+            isDecending = false;
         }
     }
 
