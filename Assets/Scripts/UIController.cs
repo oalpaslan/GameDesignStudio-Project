@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public Slider slider;
+    public Image border, vampSpd, vampVis;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +17,37 @@ public class UIController : MonoBehaviour
     void Update()
     {
         ManageBloodUI();
+        ManagePowerUI();
     }
 
     private void ManageBloodUI()
     {
-        //PlayerController2.instance.bloodAmount = slider.value;
+        if (slider != null)
+        {
+
+            slider.value = PlayerController2.instance.bloodAmount;
+        }
+    }
+
+    private void ManagePowerUI()
+    {
+        if (PlayerController2.instance.isVampSpdEnabled)
+        {
+
+            border.enabled = true;
+            vampSpd.enabled = true;
+        }
+        else if (PlayerController2.instance.isVampVisEnabled)
+        {
+            border.enabled = true;
+            vampVis.enabled = true;
+        }
+        else
+        {
+            border.enabled = false;
+            vampSpd.enabled = false;
+            vampVis.enabled = false;
+        }
+
     }
 }
