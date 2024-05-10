@@ -52,12 +52,13 @@ public class PlayerController2 : MonoBehaviour
     private GameObject curWarp;
 
     //Powers
-    private bool isSpendingBlood = false,
+    public bool isSpendingBlood = false,
                 isVampVisEnabled = false,
                 isVampSpdEnabled = false,
                 hiddenLayerStatus = true;
-
-    private int bloodInUse = 0;
+    [SerializeField]
+    private float vampSpeedCost;
+    private float bloodInUse = 0;
 
     private GameObject hLayer;
 
@@ -96,6 +97,14 @@ public class PlayerController2 : MonoBehaviour
         //vVision();
 
         checkDeath(); // makes all death checks (height and HP)
+        if (isVampSpdEnabled && isSpendingBlood)
+        {
+            pSpeed = 10f;
+        }
+        else if (!isVampSpdEnabled || !isSpendingBlood)
+        {
+            pSpeed = baseSpeed;
+        }
     }
 
     private void Movement()
@@ -133,10 +142,7 @@ public class PlayerController2 : MonoBehaviour
         }
         if (bloodInUse > 0 && isSpendingBlood)
         {
-
             StartCoroutine(useBlood(bloodInUse));
-
-
         }
 
         if (rBody.velocity.y > 1)
@@ -148,10 +154,8 @@ public class PlayerController2 : MonoBehaviour
         {
             isAscending = false;
             isDecending = true;
-
         }
         else
-
         {
             isAscending = false;
             isDecending = false;
@@ -323,9 +327,8 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
-    private IEnumerator useBlood(int bSpent)
+    private IEnumerator useBlood(float bSpent)
     {
-        Debug.Log("useBlood");
         bloodInUse = 0;
         while (bloodAmount > bSpent && isSpendingBlood)
         {
@@ -333,11 +336,10 @@ public class PlayerController2 : MonoBehaviour
             bloodAmount -= bSpent;
 
             //updateBloodUI();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.1f);
         }
         isSpendingBlood = false;
     }
-
 
     private void checkDeath()
     {
@@ -376,21 +378,18 @@ public class PlayerController2 : MonoBehaviour
 
     private void VampSpeed(bool vSpeedEnabled)
     {
-        if (vSpeedEnabled && bloodInUse < bloodAmount)
+        if (vSpeedEnabled && vampSpeedCost < bloodAmount)
         {
 
-            Debug.Log("vSpeedEnabled");
-            pSpeed = 10;
-            bloodInUse = 3;
+            isVampSpdEnabled = true;
+            bloodInUse = vampSpeedCost;
             isSpendingBlood = true;
         }
         else
         {
-            Debug.Log("vSpeedDisabled");
-
-            isSpendingBlood = false;
+            isVampSpdEnabled = false;
             bloodInUse = 0;
-            pSpeed = 5;
+            isSpendingBlood = false;
         }
 
     }
