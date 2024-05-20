@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
+[System.Serializable]
+public class SkillBloodCost
+{
+    public string skillName;
+    public float bloodCost;
+}
+
 public class PlayerController2 : MonoBehaviour
 {
-
     public static PlayerController2 instance;
 
-    //Movement
-
+    // Movement
     [SerializeField]
     private float baseSpeed, pSpeed = 5f;
     [SerializeField]
@@ -35,8 +41,7 @@ public class PlayerController2 : MonoBehaviour
     public SpriteRenderer pRenderer;
     private Animator anim;
 
-    //Wall Slide and Jump
-
+    // Wall Slide and Jump
     public Transform groundCheckPoint, wallCheckPoint;
     public LayerMask whatIsGround, whatIsWall;
 
@@ -47,19 +52,20 @@ public class PlayerController2 : MonoBehaviour
                     wallJumpingDuration = 0.4f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
-
-    //Warp
+    // Warp
     private GameObject curWarp;
 
-    //Powers
-    public bool isSpendingBlood = false,
-                isVampVisEnabled = false,
-                isVampSpdEnabled = false,
+    // Powers
+    [SerializeField]
+    private List<SkillBloodCost> skillBloodCostList = new List<SkillBloodCost>();
+
+    public Dictionary<string, float> skillBloodCosts = new Dictionary<string, float>();
+    public Dictionary<string, bool> activeSkills = new Dictionary<string, bool>();
+    private Coroutine bloodCoroutine;
+
+    public bool isVampVisEnabled = false,
                 hiddenLayerStatus = true;
     [SerializeField]
-    private float vampSpeedCost;
-    private float bloodInUse = 0;
-
     private GameObject hLayer;
 
     private bool isAscending, isDecending;
@@ -68,20 +74,25 @@ public class PlayerController2 : MonoBehaviour
     {
         instance = this;
     }
+
     void Start()
     {
         pRenderer = gameObject.GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         pCollider = GetComponent<CapsuleCollider2D>();
         hLayer = GameObject.FindGameObjectWithTag("Hidden");
+
+        foreach (var skill in skillBloodCostList)
+        {
+            skillBloodCosts[skill.skillName] = skill.bloodCost;
+            activeSkills[skill.skillName] = false; // Initialize all skills as inactive
+        }
     }
 
     void Update()
     {
-        //pSpeed = 5f;
-
-
         Movement();
+        Skills();
 
         isOnGround = Physics2D.OverlapCircle(groundCheckPoint.position, .05f, whatIsGround); //OverlapCircle tells if a circle in a position overlaps with another collider
 
@@ -90,36 +101,24 @@ public class PlayerController2 : MonoBehaviour
         WallSlide();
         WallJump();
 
-        //OpenDoor();
         UseWarp();
-
-        //power toogles
-        //vVision();
-
         checkDeath(); // makes all death checks (height and HP)
-        if (isVampSpdEnabled && isSpendingBlood)
-        {
-            pSpeed = 10f;
-        }
-        else if (!isVampSpdEnabled || !isSpendingBlood)
-        {
-            pSpeed = baseSpeed;
-        }
     }
 
     private void Movement()
     {
-
         rBody.velocity = new Vector2(pSpeed * Input.GetAxis("Horizontal"), rBody.velocity.y);
         anim.SetFloat("Speed", Mathf.Abs(rBody.velocity.x));
         anim.SetBool("IsWallSlide", isWallSliding);
         anim.SetBool("IsOnGround", isOnGround);
-        anim.SetBool("IsAscending", isAscending);
-        anim.SetBool("IsDecending", isDecending);
+        //anim.SetBool("IsAscending", isAscending);
+        //anim.SetBool("IsDecending", isDecending);
 
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
+            Debug.Log("jumped");
             rBody.velocity = new Vector2(rBody.velocity.x, jumpForce);
+
         }
 
         if (Input.GetAxis("Horizontal") < 0)
@@ -133,16 +132,6 @@ public class PlayerController2 : MonoBehaviour
             pRenderer.flipX = false;
             wallCheckPoint.transform.position = new Vector2(gameObject.transform.position.x + 0.2f, transform.position.y);
             wallCheckPoint.transform.rotation = new Quaternion(0, 0, 0, 0);
-        }
-        if (Input.GetButtonDown("Speed"))
-        {
-            isVampSpdEnabled = !isVampSpdEnabled;
-            VampSpeed(isVampSpdEnabled);
-
-        }
-        if (bloodInUse > 0 && isSpendingBlood)
-        {
-            StartCoroutine(useBlood(bloodInUse));
         }
 
         if (rBody.velocity.y > 1)
@@ -162,6 +151,102 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
+    private void Skills()
+    {
+        if (Input.GetButtonDown("Speed"))
+        {
+            ToggleSkill("Speed");
+        }
+
+        if (Input.GetButtonDown("Vision"))
+        {
+            ToggleSkill("Vision");
+            Debug.Log(activeSkills["Vision"]);
+        }
+
+        if (activeSkills.ContainsValue(true))
+        {
+            if (bloodCoroutine == null)
+            {
+                bloodCoroutine = StartCoroutine(SpendBloodOverTime());
+            }
+
+        }
+
+        else
+        {
+            if (bloodCoroutine != null)
+            {
+                StopCoroutine(bloodCoroutine);
+                bloodCoroutine = null;
+            }
+        }
+        if (activeSkills["Speed"])
+        {
+            VampSpeed(true);
+        }
+        else { VampSpeed(false); }
+
+        //GameObject vvTrue = GameObject.FindGameObjectWithTag("vvTrue");
+        //if (activeSkills["Vision"])
+        //{
+        //    Debug.Log("FOUND IT22");
+        //    toggleHidden(false);
+        //}
+        //else
+        //{
+        //    toggleHidden(true);
+
+        //}
+    }
+
+    private void ToggleSkill(string skillName)
+    {
+        activeSkills[skillName] = !activeSkills[skillName];
+    }
+
+    private IEnumerator SpendBloodOverTime()
+    {
+        while (true)
+        {
+            float totalBloodCost = 0f;
+
+            foreach (var skill in activeSkills)
+            {
+                if (skill.Value)
+                {
+                    totalBloodCost += skillBloodCosts[skill.Key];
+                }
+            }
+
+            if (bloodAmount >= totalBloodCost)
+            {
+                bloodAmount -= totalBloodCost;
+                Debug.Log("Blood spent: " + totalBloodCost + " | Remaining blood: " + bloodAmount);
+                yield return new WaitForSeconds(0.2f);
+            }
+            else
+            {
+                Debug.Log("Not enough blood!");
+                StopAllSkills();
+                break;
+            }
+        }
+    }
+
+    private void StopAllSkills()
+    {
+        foreach (var skill in activeSkills.Keys.ToList())
+        {
+            activeSkills[skill] = false;
+        }
+        if (bloodCoroutine != null)
+        {
+            StopCoroutine(bloodCoroutine);
+            bloodCoroutine = null;
+        }
+    }
+
     private void Reset()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -169,7 +254,6 @@ public class PlayerController2 : MonoBehaviour
 
     private void changeScene(string scene)
     {
-        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
         SceneManager.LoadScene(scene);
     }
 
@@ -182,11 +266,6 @@ public class PlayerController2 : MonoBehaviour
         {
             rBodyObj.isKinematic = true;
         }
-        //else if (collision.gameObject.CompareTag("Enemy"))
-        //{
-        //    bloodAmount -= damage;
-        //}
-
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -196,19 +275,12 @@ public class PlayerController2 : MonoBehaviour
         rBodyObj.isKinematic = false;
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Button"))
         {
             isButtonActive = true;
         }
-        //else if (collision.gameObject.CompareTag("Soulmate"))
-        //{
-        //    //Trigger dialogue
-        //    //Use Panel
-        //}
-
         else if (collision.gameObject.CompareTag("Warp"))
         {
             curWarp = collision.gameObject;
@@ -219,10 +291,8 @@ public class PlayerController2 : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Scene"))
         {
-
             changeScene(collision.gameObject.name);
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -244,32 +314,6 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
-    //private void OpenDoor()
-    //{
-
-    //    GameObject door = GameObject.FindGameObjectWithTag("Door");
-    //    if (door != null)
-    //    {
-    //    Rigidbody2D rBodyDoor = door.GetComponent<Rigidbody2D>();
-    //        if (isButtonActive && Input.GetButtonDown("Interact"))
-    //        {
-    //            Debug.Log("interacted");
-    //            if (rBodyDoor.velocity.y <= 0 && door.transform.position.y < maxDoorHeight)
-    //                rBodyDoor.velocity = new Vector2(0, 2);
-
-    //        }
-    //        else if (!isButtonActive)
-    //        {
-    //            rBodyDoor.velocity = Vector2.zero;
-
-    //        }
-    //        if (door.transform.position.y > maxDoorHeight)
-    //        {
-    //            rBodyDoor.velocity = Vector2.zero;
-    //        }
-    //    }
-    //}
-
     private void UseWarp()
     {
         if (curWarp != null)
@@ -280,6 +324,7 @@ public class PlayerController2 : MonoBehaviour
             }
         }
     }
+
     private void WallJump()
     {
         if (isWallSliding)
@@ -327,105 +372,55 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
-    private IEnumerator useBlood(float bSpent)
-    {
-        bloodInUse = 0;
-        while (bloodAmount > bSpent && isSpendingBlood)
-        {
-
-            bloodAmount -= bSpent;
-
-            //updateBloodUI();
-            yield return new WaitForSeconds(0.1f);
-        }
-        isSpendingBlood = false;
-    }
-
     private void checkDeath()
     {
         if (bloodAmount <= 0)
         {
-            //Reset();
+            // Reset();
         }
         if (gameObject.transform.position.y < minHeightBeforeDeath)
             Reset();
     }
-    //private void vVision()
-    //{
-    //    GameObject vvTrue = GameObject.FindGameObjectWithTag("vvTrue");
-
-    //    if (Input.GetButtonDown("Vision"))
-    //    {
-    //        if (isVampVisEnabled == false)
-    //        {
-    //            if (useBlood(1))
-    //            {  //determine how much blood will be used to open
-    //                isVampVisEnabled = true;
-    //                toggleHidden(false);
-    //                vvTrue.SetActive(true);
-    //            }
-    //        }
-    //        else
-    //        {
-    //            isVampVisEnabled = false;
-    //            toggleHidden(true);
-    //            vvTrue.SetActive(false);
-    //        }
-    //    }
-
-
-    //}
 
     private void VampSpeed(bool vSpeedEnabled)
     {
-        if (vSpeedEnabled && vampSpeedCost < bloodAmount)
+        if (vSpeedEnabled && skillBloodCosts["Speed"] <= bloodAmount)
         {
+            pSpeed = 10f;
 
-            isVampSpdEnabled = true;
-            bloodInUse = vampSpeedCost;
-            isSpendingBlood = true;
         }
         else
         {
-            isVampSpdEnabled = false;
-            bloodInUse = 0;
-            isSpendingBlood = false;
+            pSpeed = baseSpeed;
         }
+    }
 
+    private void VampVision(bool vVisionEnabled)
+    {
+        if (vVisionEnabled && skillBloodCosts["Vision"] <= bloodAmount)
+        {
+            isVampVisEnabled = true;
+        }
+        else
+        {
+            isVampVisEnabled = false;
+        }
     }
 
     private void toggleHidden(bool hidden)
     {
-
-        //hiddenLayerStatus true means it is showing (hiding the map)
-
-        if (hiddenLayerStatus && !hidden) //hidden layer is active and there is a request to disable it
+        if (!hidden) //hidden layer is active and there is a request to disable it
         {
-            //hLayer.SetActive(false);
-            hLayer.transform.GetComponent<TilemapRenderer>().enabled = false;
+            hLayer.transform.GetComponent<SpriteRenderer>().enabled = false;
             hiddenLayerStatus = false;
-
-
-            // I need to make an Update i think
-
             return;
         }
 
-        if (!hiddenLayerStatus && hidden) //hidden layer is closed and there is a request to enable it
+        if (hidden) //hidden layer is closed and there is a request to enable it
         {
-            //hLayer.SetActive(true);
-            hLayer.transform.GetComponent<TilemapRenderer>().enabled = true;
-
+            hLayer.transform.GetComponent<SpriteRenderer>().enabled = true;
             hiddenLayerStatus = true;
-            // I need to make an Update i think
-
             return;
         }
     }
-
 }
-
-
-
-
-
