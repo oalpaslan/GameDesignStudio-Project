@@ -195,15 +195,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cebd4f3a49d903459a16499d92d03c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSpeed: 5
   pSpeed: 5
   jumpForce: 15
   wallSlidingSpeed: 2
   VSpeedTick: 3
   maxDoorHeight: 0
   minHeightBeforeDeath: -10
-  bloodAmount: 100000
+  bloodAmount: 100
   damage: 0
-  spendBlood: 0
   rBody: {fileID: 3871030476752195128}
   pCollider: {fileID: 1581000196758719245}
   pRenderer: {fileID: 8808438264401425992}
@@ -215,6 +215,14 @@ MonoBehaviour:
   whatIsWall:
     serializedVersion: 2
     m_Bits: 64
+  skillBloodCostList:
+  - skillName: Speed
+    bloodCost: 0.5
+  - skillName: Vision
+    bloodCost: 0.5
+  isVampVisEnabled: 0
+  hiddenLayerStatus: 1
+  hLayer: {fileID: 0}
 --- !u!95 &5335722270046810175
 Animator:
   serializedVersion: 5
