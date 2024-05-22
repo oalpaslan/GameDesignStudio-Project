@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class SkillBloodCost
@@ -70,6 +72,11 @@ public class PlayerController2 : MonoBehaviour
 
     private bool isAscending, isDecending;
 
+    //Interaction
+    public bool interactWithNote = false,
+                interactWithNPC = false;
+    GameObject currentNote;
+
     private void Awake()
     {
         instance = this;
@@ -103,6 +110,11 @@ public class PlayerController2 : MonoBehaviour
 
         UseWarp();
         checkDeath(); // makes all death checks (height and HP)
+        if (interactWithNote)
+        {
+
+            InteractWithNote();
+        }
     }
 
     private void Movement()
@@ -289,9 +301,22 @@ public class PlayerController2 : MonoBehaviour
         {
             toggleHidden(false);
         }
+        else if (collision.gameObject.CompareTag("NPC"))
+        {
+
+        }
         if (collision.gameObject.CompareTag("Scene"))
         {
             changeScene(collision.gameObject.name);
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Note"))
+        {
+            currentNote = collision.gameObject;
+            interactWithNote = true;
+
         }
     }
 
@@ -311,6 +336,11 @@ public class PlayerController2 : MonoBehaviour
         if (collision.gameObject.CompareTag("Hidden"))
         {
             toggleHidden(true);
+        }
+        if (collision.gameObject.CompareTag("Note"))
+        {
+            currentNote = null;
+
         }
     }
 
@@ -404,6 +434,24 @@ public class PlayerController2 : MonoBehaviour
         else
         {
             isVampVisEnabled = false;
+        }
+    }
+
+    private void InteractWithNote()
+    {
+        if (Input.GetButtonDown("Interact") && interactWithNote)
+        {
+            if (NotesController.instance.isNoteOpen)
+            {
+                // If the note is already open, go to the next page
+                NotesController.instance.NextPage();
+            }
+            else
+            {
+                // Open the note
+                NotesController.instance.OpenNote(currentNote.name);
+
+            }
         }
     }
 
