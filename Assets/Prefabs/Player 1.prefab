@@ -223,6 +223,7 @@ MonoBehaviour:
   isVampVisEnabled: 0
   hiddenLayerStatus: 1
   hLayer: {fileID: 0}
+  interactWithNote: 0
 --- !u!95 &5335722270046810175
 Animator:
   serializedVersion: 5

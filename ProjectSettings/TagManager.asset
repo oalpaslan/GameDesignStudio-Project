@@ -10,6 +10,9 @@ TagManager:
   - Object
   - vvTrue
   - Scene
+  - Note
+  - NotePanel
+  - Button
   layers:
   - Default
   - TransparentFX
