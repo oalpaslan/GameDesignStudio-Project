@@ -13,6 +13,8 @@ TagManager:
   - Note
   - NotePanel
   - Button
+  - NPC
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -26,7 +28,7 @@ TagManager:
   - tfGround
   - Player
   - Background
-  - 
+  - Enemy
   - 
   - 
   - 

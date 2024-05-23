@@ -512,114 +512,82 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 5034124781083042130}
-  notes:
-  - "My dearest, moon hangs heavy in the sky tonight casting its gentle light from
-    my window. Though the sleeping forest and calm sky are a wondrous sight, they
-    pale in comparison to you. Ever since the first moment I set my eyes on you I
-    have known no peace. It's not the absence of lifeblood that plagues me anymore,
-    but the absence of you. Every moment of my night I am eternally consumed by thoughts
-    of you, an insatiable need to be near you. My heart aches for you. My thirst
-    for blood is nothing compared to my hunger for you. You are my torment and my
-    only salvation. Words fail to express the depth of my longing. Your presence
-    warms my heart with the heat of a sun I haven\u2019t seen in decades, and I wish
-    you bathe in your light. I yearn for our stolen moments, your fleeting touch
-    that ignites the flames in me. Your body is my shrine, and even though I am unworthy,
-    I wish to worship it for all eternity. I wish to give you pleasure like you have
-    never known, the happiness you so richly deserve. It is your body, your flesh,
-    your blood that fills me with sinful thoughts, but it is your soul that fills
-    me with a sinful longing. Even an eternity is not enough time with you. Years
-    filled with your laughter wouldn't be enough to sate me, I would beg for more.
-    Your laughter is the sweetest melody ever heard, chasing away the silence of
-    my lonely eternity. You gaze upon me and see more than the monster that I know
-    I am. I could never wish this cursed existence upon you, yet I find myself unable
-    to even imagine my dark world without you. I thought myself incapable of feeling
-    such depth of emotion any longer, but you have awoken something in me, something
-    that had long slumbered. You have given me hope, hope for a future, an eternity
-    with you. And hope, my love, is the most dangerous weapon known to man. You wield
-    a power over me that you cannot fathom. You are an open wound on my chest, my
-    greatest vulnerability. Yet, I traded my impenetrable armor just for one moment
-    of happiness with you. It is the greatest trade of my existence. I vow to cherish
-    the greatest gift ever bestowed upon me \u2013 your heart. Though it can never
-    be repaid in equal measure, I offer you my aching black heart in return. Until
-    we meet again, my love, let the rustling leaves carry a memory of my laughter.
-    Let the summer breeze brush against your cheek, a phantom touch from your eternal
-    lover. When the world sleeps, and the moon reigns supreme, seek me in the whispers
-    carried on the night air. I will be with you, always, a constant echo in the
-    darkness.  With a heart that beats for you only, Forever yours, Victoria"
-  - "Never in my years of existence I have felt such heartache. It threatens to split
-    me open. I do know how to go on. I don\u2019t know if I can go on. But what could
-    destroy the indestructible? Which blade could penetrate stone skin? If I were
-    to jump off this cliff this very moment, can it even hurt more than this? Could
-    anything? There is no respite. I am doomed. She has destroyed me."
-  - "I thought before I knew pain, agony. I thought I was a monster. I was wrong,
-    I was a fool. I was no monster, merely a weak animal. I shall now become the
-    monster they think I am. I shall show no mercy. They will know no peace as I
-    know no peace. I will bathe in their blood for what they\u2019ve done to her.
-    Yet, it will not be enough. It will never be enough, and I will never stop."
-  - "I don\u2019t know how to begin even describing what has transpired. I am unsure
-    whether I even know. All I know is that I must write for this diary is the only
-    friend I have left. I must remember. Rain lashes against the windowpane, a relentless
-    counterpoint to the storm raging inside me. Seems impossible but I met her again.
-    Laura. My Laura. My heart aches with a recognition that transcends lifetimes,
-    a phantom limb yearning for its missing half. But fate, that cruel jester, seems
-    to delight in snatching her away just as quickly as it allows us to meet. In
-    this life, she was a baker with eyes the color of emerald fire and a smile that
-    could melt glaciers. Her name was Adora. It was as if she was made for me, ever
-    so beautiful, ever so sweet. She had gold locks circling her angelic face, just
-    a few shades lighter than my own. Even her new name was a testament to our love.
-    A sign from the gods. Or so have I thought. I found solace in the warmth of her
-    touch, a fleeting respite from the gnawing loneliness that is my eternal curse.
-    Oh, it was so sweet. Holding her in my arms again, inhaling her intoxicating
-    scent, seeing her radiant smile. A weight was lifted off me. I was whole again.
-    For a brief moment, I was happy. I dared to hope again. That was my crucial mistake.
-    Of course the joy was short-lived. A random falling beam, a twist of fate, and
-    she was gone. Gone, and with her, the tenuous thread of sanity I clung to. I
-    am slowly dragged down to the edge of madness. I am filled with a bottomless
-    sea of unanswered questions. How did I know? How could I recognize her soul across
-    the gulf of time? It's a feeling, a primal tug that resonates in the very core
-    of my being. But knowledge offers little comfort when paired with powerlessness.
-    Cursed by her goddess she said, Oriana must be the one who has forsaken us. Cursed
-    her for loving a forbidden creature of the night. Cursed me for all I have done.
-    I know I deserve my punishment, I deserve this torment. But what about her? My
-    delicate flower, shackled by my love and brought down to my endless darkness.
-    But what kind of love is punished with such cruelty? Is it the love that brought
-    light and laughter to our days? The love that filled the nights with whispered
-    secrets and shared dreams? Her only crime was me. I do not know if I could survive
-    this again. When I lose her, I lose myself. I lose everything good in me. I want
-    to turn into the monster they think me and set the world on fire. I want them
-    to hurt like I hurt, suffer like I suffer every moment. Revenge is the only thing
-    I crave as it sustains me, not the blood I am obliged to consume. From whom,
-    I do not know. There is so much I don\u2019t know. It is so easy to give in to
-    this rage, this sorrow. But for her, I will endure. I will be good. For her,
-    I will find a way. Next time, I will be prepared. I will keep her from any harm.
-    I will keep her."
-  - "History of Avallen  Chapter 3: The Waning Age  For millennia, the bright light
-    of the Celestials, Oriana the Sun Goddess, bathed the country of Avallen in warmth
-    and life. Mortals toiled under her benevolent gaze, crops flourished, and the
-    country has seen an unprecedented time of abundance. The goddess only demanded
-    a small price, an annual sacrifice in her honor. Despite all the good will they
-    received, hubris bloomed in the hearts of the first rulers \u2013 the Volkov
-    Dynasty. They could not defy their selfish, greedy human nature.  King Volkov
-    IX, a man whose ambition outweighed his wisdom, had taken the goddess\u2019 gifts
-    for granted, demanded more and more without the price. He has withheld the promised
-    bounty and resorted to heresy. Oriana had not known such an insult to that day,
-    this deed could not go unpunished. The earth trembled, skies crackled, and a
-    monstrous crimson sun loomed for a single, terrifying day. This act of defiance,
-    etched in the memories of all who witnessed it, became known as the Day of Crimson
-    Dawn.  Oriana\u2019s fury was unlike anything witnessed before. The once-nurturing
-    sun morphed into a relentless furnace, scorching the land. Crops withered in
-    the fields, rivers bubbled and evaporated, and cities crumbled under the merciless
-    heat. Volkov's grand palace, a monument to his folly, became the first monument
-    to fall, melting under a relentless, concentrated beam of sunlight. The once-fertile
-    plains transformed into a desolate wasteland, a permanent scar on the earth,
-    a testament to the sun goddess' wrath.  This day, known as the Great Scorch,
-    was the worst catastrophe to befall the land of Avallen. There were few survivors,
-    and they were forever scarred both in body and mind. No person inhibits the land
-    to this day, no one even dares to venture.  The Great Scorch serves as a dire
-    warning: defy the sun goddess at your peril. Her wrath is as relentless as her
-    light, and the punishment for treachery is a fate worse than death \u2013 a land
-    forever scarred, a people forever humbled under the unforgiving gaze of the sun."
   maxCharactersPerPage: 900
+  noteDict:
+  - noteName: LetterToLover
+    content: "My dearest, moon hangs heavy in the sky tonight casting its gentle
+      light from my window. Though the sleeping forest and calm sky are a wondrous
+      sight, they pale in comparison to you. Ever since the first moment I set my
+      eyes on you I have known no peace. It's not the absence of lifeblood that plagues
+      me anymore, but the absence of you. Every moment of my night I am eternally
+      consumed by thoughts of you, an insatiable need to be near you. My heart aches
+      for you. My thirst for blood is nothing compared to my hunger for you. You
+      are my torment and my only salvation. Words fail to express the depth of my
+      longing. Your presence warms my heart with the heat of a sun I haven\u2019t
+      seen in decades, and I wish you bathe in your light. I yearn for our stolen
+      moments, your fleeting touch that ignites the flames in me. Your body is my
+      shrine, and even though I am unworthy, I wish to worship it for all eternity.
+      I wish to give you pleasure like you have never known, the happiness you so
+      richly deserve. It is your body, your flesh, your blood that fills me with
+      sinful thoughts, but it is your soul that fills me with a sinful longing. Even
+      an eternity is not enough time with you. Years filled with your laughter wouldn't
+      be enough to sate me, I would beg for more. Your laughter is the sweetest melody
+      ever heard, chasing away the silence of my lonely eternity. You gaze upon me
+      and see more than the monster that I know I am. I could never wish this cursed
+      existence upon you, yet I find myself unable to even imagine my dark world
+      without you. I thought myself incapable of feeling such depth of emotion any
+      longer, but you have awoken something in me, something that had long slumbered.
+      You have given me hope, hope for a future, an eternity with you. And hope,
+      my love, is the most dangerous weapon known to man. You wield a power over
+      me that you cannot fathom. You are an open wound on my chest, my greatest vulnerability.
+      Yet, I traded my impenetrable armor just for one moment of happiness with you.
+      It is the greatest trade of my existence. I vow to cherish the greatest gift
+      ever bestowed upon me \u2013 your heart. Though it can never be repaid in equal
+      measure, I offer you my aching black heart in return. Until we meet again,
+      my love, let the rustling leaves carry a memory of my laughter. Let the summer
+      breeze brush against your cheek, a phantom touch from your eternal lover. When
+      the world sleeps, and the moon reigns supreme, seek me in the whispers carried
+      on the night air. I will be with you, always, a constant echo in the darkness. 
+      With a heart that beats for you only, Forever yours, Victoria"
+  - noteName: AfterLosingLover
+    content: "I don\u2019t know how to begin even describing what has transpired.
+      I am unsure whether I even know. All I know is that I must write for this diary
+      is the only friend I have left. I must remember. Rain lashes against the windowpane,
+      a relentless counterpoint to the storm raging inside me. Seems impossible but
+      I met her again. Laura. My Laura. My heart aches with a recognition that transcends
+      lifetimes, a phantom limb yearning for its missing half. But fate, that cruel
+      jester, seems to delight in snatching her away just as quickly as it allows
+      us to meet. In this life, she was a baker with eyes the color of emerald fire
+      and a smile that could melt glaciers. Her name was Adora. It was as if she
+      was made for me, ever so beautiful, ever so sweet. She had gold locks circling
+      her angelic face, just a few shades lighter than my own. Even her new name
+      was a testament to our love. A sign from the gods. Or so have I thought. I
+      found solace in the warmth of her touch, a fleeting respite from the gnawing
+      loneliness that is my eternal curse. Oh, it was so sweet. Holding her in my
+      arms again, inhaling her intoxicating scent, seeing her radiant smile. A weight
+      was lifted off me. I was whole again. For a brief moment, I was happy. I dared
+      to hope again. That was my crucial mistake. Of course the joy was short-lived.
+      A random falling beam, a twist of fate, and she was gone. Gone, and with her,
+      the tenuous thread of sanity I clung to. I am slowly dragged down to the edge
+      of madness. I am filled with a bottomless sea of unanswered questions. How
+      did I know? How could I recognize her soul across the gulf of time? It's a
+      feeling, a primal tug that resonates in the very core of my being. But knowledge
+      offers little comfort when paired with powerlessness. Cursed by her goddess
+      she said, Oriana must be the one who has forsaken us. Cursed her for loving
+      a forbidden creature of the night. Cursed me for all I have done. I know I
+      deserve my punishment, I deserve this torment. But what about her? My delicate
+      flower, shackled by my love and brought down to my endless darkness. But what
+      kind of love is punished with such cruelty? Is it the love that brought light
+      and laughter to our days? The love that filled the nights with whispered secrets
+      and shared dreams? Her only crime was me. I do not know if I could survive
+      this again. When I lose her, I lose myself. I lose everything good in me. I
+      want to turn into the monster they think me and set the world on fire. I want
+      them to hurt like I hurt, suffer like I suffer every moment. Revenge is the
+      only thing I crave as it sustains me, not the blood I am obliged to consume.
+      From whom, I do not know. There is so much I don\u2019t know. It is so easy
+      to give in to this rage, this sorrow. But for her, I will endure. I will be
+      good. For her, I will find a way. Next time, I will be prepared. I will keep
+      her from any harm. I will keep her."
   isNoteOpen: 0
 --- !u!1 &3091982103876173520
 GameObject:
@@ -1063,21 +1031,69 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6794715392882328214}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4391fc3eddf6f164bbe3d8338f6f1f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 2026221350257463243}
-  lines:
-  - 'Victoria: Excuse me, do you have a moment?'
-  - 'Shopkeeper: Always for a curious soul! Looking for a special bouquet perhaps?'
-  - 'Victoria: Not exactly flowers, but information. I''m new in town and fascinated
-    by its history, especially the abandoned Solarian Temple.'
-  - 'Shopkeeper: Ah, the Temple! Every now and then someone comes looking for it.
-    A place of whispers and mysteries. You won''t find much written down, dear. Most
-    of the town''s history lives in the memories of its people.'
   textSpeed: 0.1
+  isDialogueOpen: 0
+  dialogueDict:
+  - npcName: Shopkeeper
+    lines:
+    - 'Victoria: Excuse me, do you have a moment?'
+    - 'Shopkeeper: Always for a curious soul! Looking for a special bouquet perhaps?'
+    - 'Victoria: Not exactly flowers, but information. I''m new in town and fascinated
+      by its history, especially the abandoned Solarian Temple.'
+    - 'Shopkeeper: Ah, the Temple! Every now and then someone comes looking for it.
+      A place of whispers and mysteries. You won''t find much written down, dear.
+      Most of the town''s history lives in the memories of its people.'
+    - 'Victoria: That''s exactly what I''m hoping to tap into. Do you know anyone
+      who might be able to share some stories?'
+    - 'Shopkeeper: Well, there''s the librarian at the old library, dusty tomes and
+      all. Knows every detail about the town''s official history. Funny enough, a
+      curious fellow came into town recently. Name was Professor Everett, I believe.
+      Was a bit of an eccentric, obsessed with the Temple. He mentioned going on
+      an expedition in the woods. Foolish idea if you ask me. The woods are full
+      of terrors.'
+    - Though, be warned, the woods are dense and dangerous. Not for the faint of
+      heart.
+    - 'Victoria: I can handle myself. Thank you for the information, it''s very helpful.'
+    - 'Shopkeeper: A brave one, aren''t you? Good luck with the search dear.'
+  - npcName: Baker
+    lines:
+    - 'Victoria: Hello there.'
+    - 'Baker: Good morning! Can I interest you in a loaf of our sourdough? Still
+      warm from the oven!'
+    - 'Victoria: It smells delicious, but actually, I was hoping you could help me
+      with something.'
+    - 'Baker: Always happy to chat. What''s on your mind?'
+    - 'Victoria: I''m new in town and fascinated by its history, especially the abandoned
+      Solarian Temple.'
+    - "Baker: Ah, the Temple!  Every now and then some folks come looking for it.
+      A place shrouded in total mystery. Not sure you can get much information about
+      the Temple. Very little of the Town\u2019s history is written. Even fewer records
+      of the Temple. Everyone here has heard some rumors of course. "
+    - 'Victoria:  That''s exactly what I''m hoping to tap into. Do you know any tales
+      about the temple?'
+    - 'Baker: Well, some folks say the priests who served there grew a little...
+      out of sorts towards the end. Others whisper about strange lights that used
+      to flicker in the forest at night.'
+    - 'Victoria: Out of sorts? Strange lights?  Tell me more about that.'
+    - 'Baker: Now, now, dear, I wouldn''t want to spread rumors. No one has even
+      seen the damned Temple in 300 years. Doubt it even exists. Though some claimed
+      they saw... well, things that shouldn''t exist around here in the woods. Weird
+      creatures they say.'
+    - 'Victoria: Creatures? Like what?'
+    - 'Baker: Let''s just say, creatures made not of meat and bone but fire, stone,
+      even shadow. [The Librarian] might know more about it.'
+    - 'Victoria: Thank you for the stories, they''ve been very helpful. I will be
+      sure to pay [the Librarian] a visit.'
+    - 'Baker: Just be careful venturing out at night, dear. You never know what lurks
+      in the darkness. Now, how about a sweet roll for the journey? On the house,
+      for a curious soul.'
+    - 'Victoria: That would be lovely. Thank you again.'
 --- !u!1 &7859939194792072413
 GameObject:
   m_ObjectHideFlags: 0
