@@ -4,19 +4,29 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using System.Reflection;
 
+[System.Serializable]
+public class NoteDict
+{
+    public string noteName;  // Name of the note
+    public string content;  // Content of the note
+}
 public class NotesController : MonoBehaviour
 {
     public static NotesController instance;
     public TextMeshProUGUI textComponent;
-    public string[] notes;
     public int maxCharactersPerPage = 900;  // Maximum number of characters per page
 
-    private List<string> pages = new List<string>();  // List to hold the split pages
+    [SerializeField]
+    private List<NoteDict> noteDict = new();
+
+    private List<string> pages = new();  // List to hold the split pages
     private int currentPageIndex = 0;  // Current page index
-    private int noteIndex = -1;  // Index of the current note
+    private string currentNoteName;  // Name of the current note
 
     public bool isNoteOpen = false;  // Flag to check if the note is open
+
 
     private void Awake()
     {
@@ -32,29 +42,58 @@ public class NotesController : MonoBehaviour
 
     void Update()
     {
-
+        if (Input.GetButtonDown("Interact") && isNoteOpen)
+        {
+            if (textComponent.text == pages[currentPageIndex])
+            {
+                NextPage();
+            }
+            else
+            {
+                textComponent.text = pages[currentPageIndex];
+            }
+        }
+        else if (Input.GetButtonDown("Cancel") && isNoteOpen)
+        {
+            CloseNote();
+        }
+        else if (Input.GetButtonDown("Back") && isNoteOpen)
+        {
+            PreviousPage();
+        }
     }
 
-    public void OpenNote(string note)
+    public void OpenNote(string noteName)
     {
-        Debug.Log("Note: " + note);
-        noteIndex = Convert.ToInt32(note[note.Length - 1].ToString()) - 1;
-        Debug.Log("Note index: " + noteIndex);
+        currentNoteName = noteName;
         Time.timeScale = 0;
-        if (noteIndex >= 0 && noteIndex < notes.Length)
+
+        string noteContent = GetNoteContent(noteName);
+
+        if (noteContent != null)
         {
-            SplitTextIntoPages(notes[noteIndex]);
+            SplitTextIntoPages(noteContent);
             currentPageIndex = 0;
             DisplayCurrentPage();
             gameObject.transform.GetComponent<Image>().enabled = true;
             textComponent.enabled = true;
             isNoteOpen = true;  // Set the flag to indicate the note is open
-            Debug.Log("Opened note with " + pages.Count + " pages.");
         }
         else
         {
             Debug.LogError("Invalid note index");
         }
+    }
+    private string GetNoteContent(string noteName)
+    {
+        foreach (NoteDict note in noteDict)
+        {
+            if (note.noteName == noteName)
+            {
+                return note.content;
+            }
+        }
+        return null;
     }
 
     private void SplitTextIntoPages(string text)
@@ -76,11 +115,9 @@ public class NotesController : MonoBehaviour
                     endIndex = lastSpaceIndex;
                 }
             }
-            Debug.Log("Start ind: " + startIndex + " End Ind: " + endIndex + " length: " + length + " textlength: " + text.Length);
             string page = text.Substring(startIndex, endIndex - startIndex).Trim();
             pages.Add(page);
             startIndex = endIndex + 1;
-            Debug.Log("Added page: " + page);
         }
     }
 
@@ -89,7 +126,6 @@ public class NotesController : MonoBehaviour
         if (pages.Count > 0 && currentPageIndex >= 0 && currentPageIndex < pages.Count)
         {
             textComponent.text = pages[currentPageIndex];
-            Debug.Log("Displaying page: " + currentPageIndex + " Content: " + pages[currentPageIndex]);
         }
         else
         {
@@ -99,7 +135,6 @@ public class NotesController : MonoBehaviour
 
     public void NextPage()
     {
-        Debug.Log("Current page index: " + currentPageIndex + ", Total pages: " + pages.Count);
         if (currentPageIndex < pages.Count - 1)
         {
             currentPageIndex++;
@@ -110,6 +145,16 @@ public class NotesController : MonoBehaviour
             CloseNote();
         }
     }
+    public void PreviousPage()
+    {
+        if (currentPageIndex > 0)
+        {
+            currentPageIndex--;
+            DisplayCurrentPage();
+        }
+
+
+    }
 
     public void CloseNote()
     {
@@ -118,7 +163,6 @@ public class NotesController : MonoBehaviour
         currentPageIndex = 0;
         pages.Clear();
         isNoteOpen = false;  // Reset the flag when the note is closed
-        Debug.Log("Closed note");
         Time.timeScale = 1;
         PlayerController2.instance.interactWithNote = false;
 
