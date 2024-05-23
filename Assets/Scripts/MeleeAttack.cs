@@ -9,6 +9,8 @@ public class MeleeAttack : MonoBehaviour
     public float attackCooldown;
     private float nextAttackTime = 0f;
 
+    private bool isPlayerTurnedLeft, isOffsetNegative = false;
+
     private CapsuleCollider2D weaponCollider;
     // Start is called before the first frame update
     void Start()
@@ -20,17 +22,26 @@ public class MeleeAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isPlayerTurnedLeft = PlayerController2.instance.pRenderer.flipX;
         if (Time.time >= nextAttackTime)
         {
-            Debug.Log("time if works");
 
             if (Input.GetButtonDown("Fire1"))
             {
-                Debug.Log("Fire1 works");
-
                 Attack();
                 nextAttackTime = Time.time + attackCooldown;
             }
+        }
+
+        if (isPlayerTurnedLeft && !isOffsetNegative)
+        {
+            isOffsetNegative = true;
+            gameObject.GetComponent<CapsuleCollider2D>().offset *= -1;
+        }
+        else if (!isPlayerTurnedLeft && isOffsetNegative)
+        {
+            gameObject.GetComponent<CapsuleCollider2D>().offset *= -1;
+            isOffsetNegative = false;
         }
     }
     void Attack()
@@ -49,13 +60,10 @@ public class MeleeAttack : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy is collided with claw");
             // Damage the enemy
             EnemyController enemy = other.GetComponent<EnemyController>();
             if (enemy != null)
             {
-                Debug.Log("Enemy is not null!!");
-
                 enemy.TakeDamage(attackDamage);
             }
         }
