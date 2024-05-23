@@ -37,6 +37,8 @@ public class NotesController : MonoBehaviour
     {
         textComponent.text = string.Empty;
         gameObject.transform.GetComponent<Image>().enabled = false;
+        GameObject.Find("BackgroundUI").GetComponent<Image>().enabled = false;
+
         textComponent.enabled = false;
     }
 
@@ -76,6 +78,7 @@ public class NotesController : MonoBehaviour
             currentPageIndex = 0;
             DisplayCurrentPage();
             gameObject.transform.GetComponent<Image>().enabled = true;
+            GameObject.Find("BackgroundUI").GetComponent<Image>().enabled = true;
             textComponent.enabled = true;
             isNoteOpen = true;  // Set the flag to indicate the note is open
         }
@@ -159,6 +162,8 @@ public class NotesController : MonoBehaviour
     public void CloseNote()
     {
         gameObject.transform.GetComponent<Image>().enabled = false;
+        GameObject.Find("BackgroundUI").GetComponent<Image>().enabled = false;
+
         textComponent.enabled = false;
         currentPageIndex = 0;
         pages.Clear();
