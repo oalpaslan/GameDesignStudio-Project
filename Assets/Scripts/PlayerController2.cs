@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -35,7 +36,7 @@ public class PlayerController2 : MonoBehaviour
     private float minHeightBeforeDeath;
 
     [SerializeField]
-    public float bloodAmount, damage;
+    public float bloodAmount;
 
     private bool isButtonActive = false;
     public Rigidbody2D rBody;
@@ -75,7 +76,12 @@ public class PlayerController2 : MonoBehaviour
     //Interaction
     public bool interactWithNote = false,
                 interactWithNPC = false;
-    GameObject currentNote;
+    GameObject currentNote, currentNPC;
+
+    //Damage & Enemy
+    [SerializeField]
+    private float damageTaken;
+    private bool collidedWithEnemy, damageCoroutineStarted;
 
     private void Awake()
     {
@@ -115,6 +121,15 @@ public class PlayerController2 : MonoBehaviour
 
             InteractWithNote();
         }
+        if (interactWithNPC)
+        {
+            InteractWithNPC();
+        }
+        if ((collidedWithEnemy) && !damageCoroutineStarted)
+        {
+            StartCoroutine(Damage(damageTaken));
+        }
+        if (bloodAmount <= 0) { Reset(); }
     }
 
     private void Movement()
@@ -128,7 +143,6 @@ public class PlayerController2 : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
-            Debug.Log("jumped");
             rBody.velocity = new Vector2(rBody.velocity.x, jumpForce);
 
         }
@@ -278,13 +292,26 @@ public class PlayerController2 : MonoBehaviour
         {
             rBodyObj.isKinematic = true;
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("bumped to enemy");
+            collidedWithEnemy = true;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        GameObject obj = GameObject.FindGameObjectWithTag("Object");
-        Rigidbody2D rBodyObj = obj.GetComponent<Rigidbody2D>();
-        rBodyObj.isKinematic = false;
+        if (collision.gameObject.CompareTag("Object"))
+        {
+
+            Rigidbody2D rBodyObj = collision.gameObject.GetComponent<Rigidbody2D>();
+            rBodyObj.isKinematic = false;
+        }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("bumped to enemy");
+            collidedWithEnemy = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -301,10 +328,7 @@ public class PlayerController2 : MonoBehaviour
         {
             toggleHidden(false);
         }
-        else if (collision.gameObject.CompareTag("NPC"))
-        {
 
-        }
         if (collision.gameObject.CompareTag("Scene"))
         {
             changeScene(collision.gameObject.name);
@@ -317,6 +341,11 @@ public class PlayerController2 : MonoBehaviour
             currentNote = collision.gameObject;
             interactWithNote = true;
 
+        }
+        else if (collision.gameObject.CompareTag("NPC"))
+        {
+            currentNPC = collision.gameObject;
+            interactWithNPC = true;
         }
     }
 
@@ -340,8 +369,26 @@ public class PlayerController2 : MonoBehaviour
         if (collision.gameObject.CompareTag("Note"))
         {
             currentNote = null;
+            interactWithNote = false;
 
         }
+        if (collision.gameObject.CompareTag("NPC"))
+        {
+            currentNPC = null;
+            interactWithNPC = false;
+        }
+    }
+
+    IEnumerator Damage(float damage)
+    {
+        Debug.Log("got into coroutine");
+        damageCoroutineStarted = true;
+        while (collidedWithEnemy)
+        {
+            bloodAmount -= damage;
+            yield return new WaitForSeconds(1);
+        }
+        damageCoroutineStarted = false;
     }
 
     private void UseWarp()
@@ -441,15 +488,28 @@ public class PlayerController2 : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact") && interactWithNote)
         {
-            if (NotesController.instance.isNoteOpen)
+            if (!NotesController.instance.isNoteOpen)
             {
-                // If the note is already open, go to the next page
-                NotesController.instance.NextPage();
-            }
-            else
-            {
-                // Open the note
+                //    // If the note is already open, go to the next page
+                //    NotesController.instance.NextPage();
+                //}
+                //else
+                //{
+                //    // Open the note
                 NotesController.instance.OpenNote(currentNote.name);
+
+            }
+        }
+    }
+    private void InteractWithNPC()
+    {
+        if (Input.GetButtonDown("Interact") && interactWithNPC)
+        {
+            Debug.Log("Interacted");
+            if (!Dialogue.instance.isDialogueOpen)
+            {
+                Dialogue.instance.StartDialogue(currentNPC.name);
+                Debug.Log("Start Dialogue");
 
             }
         }
