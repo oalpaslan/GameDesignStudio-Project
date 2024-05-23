@@ -7,21 +7,21 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
-    private Transform leftPoint, rightPoint;
+    private float leftPoint, rightPoint, upPoint, downPoint;
+
+    private float initialPos;
 
     private bool movingRight;
 
     private Rigidbody2D rBody;
     public SpriteRenderer spriteRenderer;
 
+    public int health;
+
     void Start()
     {
         rBody = GetComponent<Rigidbody2D>();
-
-
-        leftPoint.parent = null;
-        rightPoint.parent = null;
-
+        initialPos = transform.position.x;
         movingRight = true;
     }
 
@@ -30,9 +30,9 @@ public class EnemyController : MonoBehaviour
         if (movingRight)
         {
             rBody.velocity = new Vector2(moveSpeed, rBody.velocity.y);
-
-            if (transform.position.x > rightPoint.position.x)
+            if (transform.position.x > initialPos + rightPoint)
             {
+                Debug.Log("moving left " + transform.position.x);
                 movingRight = false;
                 spriteRenderer.flipX = false;
             }
@@ -41,13 +41,28 @@ public class EnemyController : MonoBehaviour
         {
 
             rBody.velocity = new Vector2(-moveSpeed, rBody.velocity.y);
-            if (transform.position.x < leftPoint.position.x)
+            if (transform.position.x < initialPos - leftPoint)
             {
+                Debug.Log("moving Right " + transform.position.x);
                 movingRight = true;
                 spriteRenderer.flipX = true;
 
             }
 
         }
+    }
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        // Destroy the enemy or play death animation
+        Destroy(gameObject);
     }
 }
