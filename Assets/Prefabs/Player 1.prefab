@@ -294,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 1
   attackCooldown: 0.3
+  drainBlood: 10
 --- !u!70 &4208185599006610500
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
