@@ -11,13 +11,13 @@ using UnityEngine.UI;
 public class DialogueDict
 {
     public string npcName;
-    public string[] lines;
+    [TextArea(0, 20)]
+    public string lines;
 }
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
     public static Dialogue instance;
-    //public Dictionary<int, string[]> dialogueDict;
     public float textSpeed;
     public bool isDialogueOpen = false;
 
@@ -25,8 +25,9 @@ public class Dialogue : MonoBehaviour
     private List<DialogueDict> dialogueDict = new();
 
 
-    private int index;
-    private string[] currentLines;
+    private int index, lineIndex,
+        firstCharIndex, lastCharIndex, currentPageCount;
+    private string currentLines;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class Dialogue : MonoBehaviour
     {
 
         textComponent.text = string.Empty;
+        GameObject.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().pageToDisplay = 1;
 
     }
 
@@ -45,21 +47,14 @@ public class Dialogue : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact") && isDialogueOpen)
         {
-            if (textComponent.text == currentLines[index])
-            {
-                NextLine();
-            }
-            else
-            {
-                StopAllCoroutines();
-                textComponent.text = currentLines[index];
-            }
+            Debug.Log("INDEX: " + index);
+            Debug.Log("PAGETODISPLAY: " + GameObject.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().pageToDisplay);
+            NextLine();
         }
-        else if (Input.GetButtonDown("Back") && isDialogueOpen)
+        else if (Input.GetButtonDown("Back") && isDialogueOpen || !PlayerController2.instance.interactWithNPC)
         {
-            StopAllCoroutines();
             textComponent.text = string.Empty;
-
+            index = 1;
             gameObject.transform.GetComponent<Image>().enabled = false;
             textComponent.enabled = false;
             isDialogueOpen = false;
@@ -68,32 +63,30 @@ public class Dialogue : MonoBehaviour
 
     public void StartDialogue(string npcName)
     {
-        index = 0;
+        index = 1;
 
         currentLines = GetDialogueLines(npcName);
         gameObject.transform.GetComponent<Image>().enabled = true;
         textComponent.enabled = true;
-        Debug.Log("Curr Lines: " + currentLines);
+
         isDialogueOpen = true;
+        Debug.Log("isdiaopen: " + isDialogueOpen);
         if (currentLines != null && currentLines.Length > 0)
         {
+            textComponent.text = currentLines;
+            GameObject.Find("Text (TMP) - Dia").GetComponent<TextMeshProUGUI>().pageToDisplay = index;
 
-
-            StartCoroutine(TypeLine());
         }
         else
         {
             Debug.LogWarning("No dialogue found for the specified NPC.");
         }
     }
-    private string[] GetDialogueLines(string npcName)
+    private string GetDialogueLines(string npcName)
     {
 
         foreach (DialogueDict dialogue in dialogueDict)
         {
-            Debug.Log("DialogueLines : " + dialogue.lines[1]);
-            Debug.Log("NPC index : " + npcName);
-            Debug.Log("Dia index : " + dialogue.npcName);
             if (dialogue.npcName == npcName)
             {
                 return dialogue.lines;
@@ -105,9 +98,9 @@ public class Dialogue : MonoBehaviour
     IEnumerator TypeLine()
     {
         Debug.Log("Start TypeLine");
-        Debug.Log(currentLines[index]);
+        Debug.Log(currentLines);
         //lines = dialogueDict[currentNPC];
-        foreach (char c in currentLines[index].ToCharArray())
+        foreach (char c in currentLines.ToCharArray())
         {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
@@ -116,16 +109,17 @@ public class Dialogue : MonoBehaviour
 
     public void NextLine()
     {
-        if (index < currentLines.Length - 1)
+        if (index < GameObject.Find("Text (TMP) - Dia").GetComponent<TextMeshProUGUI>().textInfo.pageCount)
         {
+            Debug.Log("nexte girdi:" + index);
             index++;
-            textComponent.text = string.Empty;
-            StartCoroutine(TypeLine());
+            GameObject.Find("Text (TMP) - Dia").GetComponent<TextMeshProUGUI>().pageToDisplay = index;
         }
         else
         {
+            Debug.Log("buraya mý girdiaq");
             textComponent.text = string.Empty;
-
+            index = 1;
             gameObject.transform.GetComponent<Image>().enabled = false;
             textComponent.enabled = false;
             isDialogueOpen = false;
