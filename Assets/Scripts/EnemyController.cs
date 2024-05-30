@@ -32,7 +32,6 @@ public class EnemyController : MonoBehaviour
             rBody.velocity = new Vector2(moveSpeed, rBody.velocity.y);
             if (transform.position.x > initialPos + rightPoint)
             {
-                Debug.Log("moving left " + transform.position.x);
                 movingRight = false;
                 spriteRenderer.flipX = false;
             }
@@ -43,7 +42,6 @@ public class EnemyController : MonoBehaviour
             rBody.velocity = new Vector2(-moveSpeed, rBody.velocity.y);
             if (transform.position.x < initialPos - leftPoint)
             {
-                Debug.Log("moving Right " + transform.position.x);
                 movingRight = true;
                 spriteRenderer.flipX = true;
 
