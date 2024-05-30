@@ -12,6 +12,8 @@ public class MeleeAttack : MonoBehaviour
     private bool isPlayerTurnedLeft, isOffsetNegative = false;
 
     private CapsuleCollider2D weaponCollider;
+    [SerializeField]
+    private float drainBlood;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +67,7 @@ public class MeleeAttack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(attackDamage);
+                PlayerController2.instance.bloodAmount += drainBlood;
             }
         }
     }
