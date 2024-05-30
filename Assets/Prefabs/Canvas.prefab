@@ -35,6 +35,7 @@ RectTransform:
   - {fileID: 8458857162864997177}
   - {fileID: 945338492558389458}
   - {fileID: 6734605193567648125}
+  - {fileID: 5634367902788621718}
   - {fileID: 5821460362665472094}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -489,8 +490,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 28acf3961be68dc46bf39f83b5b00c9a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -589,6 +590,7 @@ MonoBehaviour:
       good. For her, I will find a way. Next time, I will be prepared. I will keep
       her from any harm. I will keep her."
   isNoteOpen: 0
+  noteContent: 
 --- !u!1 &3091982103876173520
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,8 +625,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030518, y: 0.0000076293945}
-  m_SizeDelta: {x: 701.65, y: 816.4688}
+  m_AnchoredPosition: {x: 0.8806, y: -16.7295}
+  m_SizeDelta: {x: 647.5929, y: 696.4751}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7414748284895693237
 CanvasRenderer:
@@ -654,16 +656,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e981ef5d56720e44cb0bcd3525858e80, type: 2}
-  m_sharedMaterial: {fileID: 2707796432046951765, guid: e981ef5d56720e44cb0bcd3525858e80, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9a761976022f46149b433a8e4748d963, type: 2}
+  m_sharedMaterial: {fileID: 1672200224796726506, guid: 9a761976022f46149b433a8e4748d963, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -681,12 +683,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 26
+  m_fontSizeMax: 36
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -699,7 +701,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 5
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -716,8 +718,8 @@ MonoBehaviour:
   m_IsTextObjectScaleStatic: 0
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_pageToDisplay: 7
+  m_margin: {x: 21.13208, y: 38.742065, z: 19.370972, w: 38.742065}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -735,7 +737,7 @@ GameObject:
   - component: {fileID: 7367134606051843549}
   - component: {fileID: 2026221350257463243}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text (TMP) - Dia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -757,8 +759,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000027001, y: -0.0000026226}
-  m_SizeDelta: {x: 1443.4027, y: 109.625}
+  m_AnchoredPosition: {x: -0.309, y: -0.679}
+  m_SizeDelta: {x: 1079.253, y: 126.658}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7367134606051843549
 CanvasRenderer:
@@ -790,8 +792,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9a761976022f46149b433a8e4748d963, type: 2}
+  m_sharedMaterial: {fileID: 1672200224796726506, guid: 9a761976022f46149b433a8e4748d963, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -815,15 +817,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70
-  m_fontSizeBase: 70
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 36
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -833,7 +835,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 5
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -850,8 +852,8 @@ MonoBehaviour:
   m_IsTextObjectScaleStatic: 0
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_pageToDisplay: 0
+  m_margin: {x: 32.257446, y: 27.426025, z: 20.16101, w: 17.83463}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -983,8 +985,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -34.821045, y: -438}
-  m_SizeDelta: {x: -386.8026, y: -926.535}
+  m_AnchoredPosition: {x: 6.743042, y: -411.78998}
+  m_SizeDelta: {x: -704.432, y: -825.73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8843976088655582550
 CanvasRenderer:
@@ -1014,8 +1016,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: ee9965cde0affca49a70dbab0dcbc9cc, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1041,59 +1043,74 @@ MonoBehaviour:
   isDialogueOpen: 0
   dialogueDict:
   - npcName: Shopkeeper
-    lines:
-    - 'Victoria: Excuse me, do you have a moment?'
-    - 'Shopkeeper: Always for a curious soul! Looking for a special bouquet perhaps?'
-    - 'Victoria: Not exactly flowers, but information. I''m new in town and fascinated
-      by its history, especially the abandoned Solarian Temple.'
-    - 'Shopkeeper: Ah, the Temple! Every now and then someone comes looking for it.
-      A place of whispers and mysteries. You won''t find much written down, dear.
-      Most of the town''s history lives in the memories of its people.'
-    - 'Victoria: That''s exactly what I''m hoping to tap into. Do you know anyone
-      who might be able to share some stories?'
-    - 'Shopkeeper: Well, there''s the librarian at the old library, dusty tomes and
-      all. Knows every detail about the town''s official history. Funny enough, a
-      curious fellow came into town recently. Name was Professor Everett, I believe.
-      Was a bit of an eccentric, obsessed with the Temple. He mentioned going on
-      an expedition in the woods. Foolish idea if you ask me. The woods are full
-      of terrors.'
-    - Though, be warned, the woods are dense and dangerous. Not for the faint of
-      heart.
-    - 'Victoria: I can handle myself. Thank you for the information, it''s very helpful.'
-    - 'Shopkeeper: A brave one, aren''t you? Good luck with the search dear.'
+    lines: 'Shopkeeper: Always for a curious soul! Looking for a special bouquet
+      perhaps?
+
+      
+
+      Victoria: Not exactly flowers, but information. I''m
+      new in town and fascinated by its history, especially the abandoned Solarian
+      Temple.
+
+      
+
+      Shopkeeper: Ah, the Temple! Every now and then someone
+      comes looking for it. A place of whispers and mysteries. You won''t find much
+      written down, dear. Most of the town''s history lives in the memories of its
+      people.
+
+      
+
+      Victoria: That''s exactly what I''m hoping to tap
+      into. Do you know anyone who might be able to share some stories?
+
+      
+
+      Shopkeeper:
+      Well, there''s the librarian at the old library, dusty tomes and all. Knows
+      every detail about the town''s official history. Funny enough, a curious fellow
+      came into town recently. Name was Professor Everett, I believe. Was a bit of
+      an eccentric, obsessed with the Temple. He mentioned going on an expedition
+      in the woods. Foolish idea if you ask me. The woods are full of terrors.
+
+      
+
+      Though,
+      be warned, the woods are dense and dangerous. Not for the faint of heart.
+
+      
+
+      Victoria:
+      I can handle myself. Thank you for the information, it''s very helpful.
+
+      
+
+      Shopkeeper:
+      A brave one, aren''t you? Good luck with the search dear.'
   - npcName: Baker
-    lines:
-    - 'Victoria: Hello there.'
-    - 'Baker: Good morning! Can I interest you in a loaf of our sourdough? Still
-      warm from the oven!'
-    - 'Victoria: It smells delicious, but actually, I was hoping you could help me
-      with something.'
-    - 'Baker: Always happy to chat. What''s on your mind?'
-    - 'Victoria: I''m new in town and fascinated by its history, especially the abandoned
-      Solarian Temple.'
-    - "Baker: Ah, the Temple!  Every now and then some folks come looking for it.
-      A place shrouded in total mystery. Not sure you can get much information about
-      the Temple. Very little of the Town\u2019s history is written. Even fewer records
-      of the Temple. Everyone here has heard some rumors of course. "
-    - 'Victoria:  That''s exactly what I''m hoping to tap into. Do you know any tales
-      about the temple?'
-    - 'Baker: Well, some folks say the priests who served there grew a little...
-      out of sorts towards the end. Others whisper about strange lights that used
-      to flicker in the forest at night.'
-    - 'Victoria: Out of sorts? Strange lights?  Tell me more about that.'
-    - 'Baker: Now, now, dear, I wouldn''t want to spread rumors. No one has even
-      seen the damned Temple in 300 years. Doubt it even exists. Though some claimed
-      they saw... well, things that shouldn''t exist around here in the woods. Weird
-      creatures they say.'
-    - 'Victoria: Creatures? Like what?'
-    - 'Baker: Let''s just say, creatures made not of meat and bone but fire, stone,
-      even shadow. [The Librarian] might know more about it.'
-    - 'Victoria: Thank you for the stories, they''ve been very helpful. I will be
-      sure to pay [the Librarian] a visit.'
-    - 'Baker: Just be careful venturing out at night, dear. You never know what lurks
-      in the darkness. Now, how about a sweet roll for the journey? On the house,
-      for a curious soul.'
-    - 'Victoria: That would be lovely. Thank you again.'
+    lines: "Baker: Good morning! Can I interest you in a loaf of our sourdough? Still
+      warm from the oven!\r\nVictoria: It smells delicious, but actually, I was hoping
+      you could help me with something.\r\nBaker: Always happy to chat. What's on
+      your mind?\r\nVictoria: I'm new in town and fascinated by its history, especially
+      the abandoned Solarian Temple.\r\nBaker: Ah, the Temple!  Every now and then
+      some folks come looking for it. A place shrouded in total mystery. Not sure
+      you can get much information about the Temple. Very little of the Town\u2019s
+      history is written. Even fewer records of the Temple. Everyone here has heard
+      some rumors of course.\r\nVictoria:  That's exactly what I'm hoping to tap
+      into. Do you know any tales about the temple?\r\nBaker: Well, some folks say
+      the priests who served there grew a little... out of sorts towards the end.
+      Others whisper about strange lights that used to flicker in the forest at night.\r\nVictoria:
+      Out of sorts? Strange lights?  Tell me more about that.\r\n\r\nBaker: Now,
+      now, dear, I wouldn't want to spread rumors. No one has even seen the damned
+      Temple in 300 years. Doubt it even exists. Though some claimed they saw...
+      well, things that shouldn't exist around here in the woods. Weird creatures
+      they say.\r\nVictoria: Creatures? Like what?\r\nBaker: Let's just say, creatures
+      made not of meat and bone but fire, stone, even shadow. [The Librarian] might
+      know more about it.\r\nVictoria: Thank you for the stories, they've been very
+      helpful. I will be sure to pay [the Librarian] a visit.\r\nBaker: Just be careful
+      venturing out at night, dear. You never know what lurks in the darkness. Now,
+      how about a sweet roll for the journey? On the house, for a curious soul.\r\nVictoria:
+      That would be lovely. Thank you again."
 --- !u!1 &7859939194792072413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,6 +1255,81 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: d8b1177cc31b8a2408c4ab6ffc6c6854, type: 3}
   m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8298708112612320830
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5634367902788621718}
+  - component: {fileID: 5143916153212898232}
+  - component: {fileID: 2165453442703073948}
+  m_Layer: 5
+  m_Name: BackgroundUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5634367902788621718
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8298708112612320830}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4771702163409035394}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -1.336792, y: 0.81347656}
+  m_SizeDelta: {x: 2.020874, y: -0.5282593}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5143916153212898232
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8298708112612320830}
+  m_CullTransparentMesh: 1
+--- !u!114 &2165453442703073948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8298708112612320830}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.07924521, g: 0.07924521, b: 0.07924521, a: 0.8627451}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
