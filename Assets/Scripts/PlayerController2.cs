@@ -90,6 +90,8 @@ public class PlayerController2 : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = false;
+
         pRenderer = gameObject.GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         pCollider = GetComponent<CapsuleCollider2D>();
@@ -275,7 +277,12 @@ public class PlayerController2 : MonoBehaviour
 
     private void Reset()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameObject.Find("DeathScreen").GetComponent<Image>().enabled = true;
+        GameObject.Find("Text (TMP) - Death").GetComponent<TextMeshProUGUI>().enabled = true;
+        if (Input.anyKeyDown)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private void changeScene(string scene)
