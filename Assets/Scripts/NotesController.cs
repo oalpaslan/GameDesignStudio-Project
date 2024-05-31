@@ -24,7 +24,6 @@ public class NotesController : MonoBehaviour
     private List<string> pages = new();  // List to hold the split pages
     //private int currentPageIndex = -1;  // Current page index
     private int currentPageIndex = 0;  // Current page index
-    private string currentNoteName;  // Name of the current note
 
     public bool isNoteOpen = false;  // Flag to check if the note is open
 
@@ -63,14 +62,12 @@ public class NotesController : MonoBehaviour
 
     public void OpenNote(string noteName)
     {
-        currentNoteName = noteName;
         Time.timeScale = 0;
 
         noteContent = GetNoteContent(noteName);
         if (noteContent != null)
         {
-            //SplitTextIntoPages(noteContent);
-            //currentPageIndex = 0;
+            Debug.Log(noteContent);
             currentPageIndex = 1;
             DisplayCurrentPage();
             gameObject.transform.GetComponent<Image>().enabled = true;
@@ -112,11 +109,11 @@ public class NotesController : MonoBehaviour
 
     public void NextPage()
     {
+
         if (currentPageIndex < GameObject.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().textInfo.pageCount)
         {
             currentPageIndex++;
             DisplayCurrentPage();
-
         }
         else
         {

@@ -17,7 +17,7 @@ public class UIController : MonoBehaviour
     void Update()
     {
         ManageBloodUI();
-        //ManagePowerUI();
+        ManagePowerUI();
     }
 
     private void ManageBloodUI()
@@ -29,25 +29,27 @@ public class UIController : MonoBehaviour
         }
     }
 
-    //private void ManagePowerUI()
-    //{
-    //    if (PlayerController2.instance.isVampSpdEnabled)
-    //    {
+    private void ManagePowerUI()
+    {
+        if (PlayerController2.instance.isVampSpdEnabled)
+        {
 
-    //        border.enabled = true;
-    //        vampSpd.enabled = true;
-    //    }
-    //    else if (PlayerController2.instance.isVampVisEnabled)
-    //    {
-    //        border.enabled = true;
-    //        vampVis.enabled = true;
-    //    }
-    //    else
-    //    {
-    //        border.enabled = false;
-    //        vampSpd.enabled = false;
-    //        vampVis.enabled = false;
-    //    }
+            border.enabled = true;
+            vampSpd.enabled = true;
+            vampVis.enabled = false;
+        }
+        else if (PlayerController2.instance.isVampVisEnabled)
+        {
+            border.enabled = true;
+            vampVis.enabled = true;
+            vampSpd.enabled = false;
+        }
+        else
+        {
+            border.enabled = false;
+            vampSpd.enabled = false;
+            vampVis.enabled = false;
+        }
 
-    //}
+    }
 }

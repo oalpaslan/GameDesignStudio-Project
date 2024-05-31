@@ -207,6 +207,7 @@ MonoBehaviour:
   rBody: {fileID: 3871030476752195128}
   pCollider: {fileID: 1581000196758719245}
   pRenderer: {fileID: 8808438264401425992}
+  anim: {fileID: 5335722270046810175}
   groundCheckPoint: {fileID: 7254262344713079952}
   wallCheckPoint: {fileID: 3512587720534656292}
   whatIsGround:
@@ -221,11 +222,17 @@ MonoBehaviour:
   - skillName: Vision
     bloodCost: 0.5
   isVampVisEnabled: 0
+  isVampSpdEnabled: 0
   hiddenLayerStatus: 1
   hLayer: {fileID: 0}
   interactWithNote: 0
   interactWithNPC: 0
+  interactWithPuzzle: 0
   damageTaken: 5
+  inputField: {fileID: 0}
+  puzzlePanel: {fileID: 0}
+  puzzleDoor: {fileID: 0}
+  envelopeTrigger: {fileID: 0}
 --- !u!95 &5335722270046810175
 Animator:
   serializedVersion: 5
@@ -236,7 +243,7 @@ Animator:
   m_GameObject: {fileID: 8022605083709003953}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0d303800c468fdd43ac65a0f2eb7d6ba, type: 2}
+  m_Controller: {fileID: 9100000, guid: d7a9825433de9df41af53aca7df23188, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -327,8 +334,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.36, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: 0.49327296, y: 0.013327271}
+  m_Size: {x: 0.7665459, y: 0.7778785}
   m_Direction: 0
 --- !u!1001 &5604987036103970388
 PrefabInstance:

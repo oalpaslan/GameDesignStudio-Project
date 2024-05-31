@@ -25,8 +25,7 @@ public class Dialogue : MonoBehaviour
     private List<DialogueDict> dialogueDict = new();
 
 
-    private int index, lineIndex,
-        firstCharIndex, lastCharIndex, currentPageCount;
+    private int index;
     private string currentLines;
 
     private void Awake()
@@ -47,8 +46,6 @@ public class Dialogue : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact") && isDialogueOpen)
         {
-            Debug.Log("INDEX: " + index);
-            Debug.Log("PAGETODISPLAY: " + GameObject.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().pageToDisplay);
             NextLine();
         }
         else if (Input.GetButtonDown("Back") && isDialogueOpen || !PlayerController2.instance.interactWithNPC)
@@ -70,7 +67,6 @@ public class Dialogue : MonoBehaviour
         textComponent.enabled = true;
 
         isDialogueOpen = true;
-        Debug.Log("isdiaopen: " + isDialogueOpen);
         if (currentLines != null && currentLines.Length > 0)
         {
             textComponent.text = currentLines;
@@ -97,9 +93,6 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator TypeLine()
     {
-        Debug.Log("Start TypeLine");
-        Debug.Log(currentLines);
-        //lines = dialogueDict[currentNPC];
         foreach (char c in currentLines.ToCharArray())
         {
             textComponent.text += c;
@@ -111,13 +104,11 @@ public class Dialogue : MonoBehaviour
     {
         if (index < GameObject.Find("Text (TMP) - Dia").GetComponent<TextMeshProUGUI>().textInfo.pageCount)
         {
-            Debug.Log("nexte girdi:" + index);
             index++;
             GameObject.Find("Text (TMP) - Dia").GetComponent<TextMeshProUGUI>().pageToDisplay = index;
         }
         else
         {
-            Debug.Log("buraya mý girdiaq");
             textComponent.text = string.Empty;
             index = 1;
             gameObject.transform.GetComponent<Image>().enabled = false;

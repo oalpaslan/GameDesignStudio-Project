@@ -49,13 +49,23 @@ public class MeleeAttack : MonoBehaviour
     void Attack()
     {
         StartCoroutine(EnableColliderTemporarily());
+        PlayerController2.instance.anim.ResetTrigger("NotAttacking");
+        PlayerController2.instance.anim.SetTrigger("Attack01");
+        StartCoroutine(AttackAnim());
+    }
+    private IEnumerator AttackAnim()
+    {
+        yield return new WaitForSeconds(0.2f);
+        PlayerController2.instance.anim.ResetTrigger("Attack01");
+        PlayerController2.instance.anim.SetTrigger("NotAttacking");
     }
 
     private IEnumerator EnableColliderTemporarily()
     {
-        Debug.Log("Attack!!");
         weaponCollider.enabled = true;
         yield return new WaitForFixedUpdate(); // Wait for the next physics update
+
+
         weaponCollider.enabled = false;
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -67,7 +77,16 @@ public class MeleeAttack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(attackDamage);
-                PlayerController2.instance.bloodAmount += drainBlood;
+                if (PlayerController2.instance.bloodAmount <= 100 - drainBlood)
+                {
+                    PlayerController2.instance.bloodAmount += drainBlood;
+
+                }
+                else
+                {
+                    PlayerController2.instance.bloodAmount = 100;
+                }
+
             }
         }
     }

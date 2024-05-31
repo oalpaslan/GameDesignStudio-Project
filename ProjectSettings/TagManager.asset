@@ -15,6 +15,7 @@ TagManager:
   - Button
   - NPC
   - Enemy
+  - Puzzle
   layers:
   - Default
   - TransparentFX

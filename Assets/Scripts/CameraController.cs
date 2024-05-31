@@ -32,8 +32,8 @@ public class CameraController : MonoBehaviour
 
 
         lastPos = amountToMove;
-
-        farBackground.position += amountToMove;
+        if (farBackground != null)
+            farBackground.position += amountToMove;
         lastPos = transform.position;
 
     }

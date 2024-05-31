@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218151569343993091}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.2, y: 2.4, z: -10}
   m_LocalScale: {x: 1.0424, y: 1.0424, z: 1.0424}
   m_ConstrainProportionsScale: 0
@@ -107,4 +107,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   farBackground: {fileID: 0}
   minHeight: -1
-  maxHeight: 34
+  maxHeight: 50

@@ -1,9 +1,9 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -42,7 +42,8 @@ public class PlayerController2 : MonoBehaviour
     public Rigidbody2D rBody;
     public CapsuleCollider2D pCollider;
     public SpriteRenderer pRenderer;
-    private Animator anim;
+    [SerializeField]
+    public Animator anim;
 
     // Wall Slide and Jump
     public Transform groundCheckPoint, wallCheckPoint;
@@ -67,6 +68,7 @@ public class PlayerController2 : MonoBehaviour
     private Coroutine bloodCoroutine;
 
     public bool isVampVisEnabled = false,
+        isVampSpdEnabled = false,
                 hiddenLayerStatus = true;
     [SerializeField]
     private GameObject hLayer;
@@ -75,13 +77,23 @@ public class PlayerController2 : MonoBehaviour
 
     //Interaction
     public bool interactWithNote = false,
-                interactWithNPC = false;
+                interactWithNPC = false,
+        interactWithPuzzle = false;
     GameObject currentNote, currentNPC;
 
     //Damage & Enemy
     [SerializeField]
     private float damageTaken;
     private bool collidedWithEnemy, damageCoroutineStarted;
+
+    //Puzzle
+    [SerializeField]
+    private TMP_InputField inputField;
+    [SerializeField]
+    private GameObject puzzlePanel, puzzleDoor;
+    [SerializeField]
+    public CircleCollider2D envelopeTrigger;
+    private bool puzzleOpened = false;
 
     private void Awake()
     {
@@ -106,41 +118,57 @@ public class PlayerController2 : MonoBehaviour
 
     void Update()
     {
-        Movement();
-        Skills();
-
-        isOnGround = Physics2D.OverlapCircle(groundCheckPoint.position, .05f, whatIsGround); //OverlapCircle tells if a circle in a position overlaps with another collider
-
-        isOnWall = Physics2D.OverlapCircle(wallCheckPoint.position, .1f, whatIsWall);
-
-        WallSlide();
-        WallJump();
-
-        UseWarp();
-        checkDeath(); // makes all death checks (height and HP)
-        if (interactWithNote)
+        if (Time.timeScale == 1)
         {
+            Movement();
+            Skills();
 
-            InteractWithNote();
+            isOnGround = Physics2D.OverlapCircle(groundCheckPoint.position, .05f, whatIsGround); //OverlapCircle tells if a circle in a position overlaps with another collider
+
+            isOnWall = Physics2D.OverlapCircle(wallCheckPoint.position, .1f, whatIsWall);
+
+            WallSlide();
+            WallJump();
+
+            UseWarp();
+            checkDeath(); // makes all death checks (height and HP)
+
+
+            if (interactWithNote)
+            {
+
+                InteractWithNote();
+            }
+            if (interactWithNPC)
+            {
+                InteractWithNPC();
+            }
+            if (interactWithPuzzle)
+            {
+                InteractWithPuzzle();
+            }
+
+            if ((collidedWithEnemy) && !damageCoroutineStarted)
+            {
+                StartCoroutine(Damage(damageTaken));
+            }
+            if (bloodAmount <= 0) { Reset(); }
         }
-        if (interactWithNPC)
+
+        if (puzzleOpened)
         {
-            InteractWithNPC();
+            Puzzle();
         }
-        if ((collidedWithEnemy) && !damageCoroutineStarted)
-        {
-            StartCoroutine(Damage(damageTaken));
-        }
-        if (bloodAmount <= 0) { Reset(); }
     }
 
     private void Movement()
     {
         rBody.velocity = new Vector2(pSpeed * Input.GetAxis("Horizontal"), rBody.velocity.y);
         anim.SetFloat("Speed", Mathf.Abs(rBody.velocity.x));
-        anim.SetBool("IsWallSlide", isWallSliding);
-        anim.SetBool("IsOnGround", isOnGround);
-        //anim.SetBool("IsAscending", isAscending);
+        anim.SetBool("WallSliding", isWallSliding);
+        anim.SetBool("Grounded", isOnGround);
+        anim.SetFloat("Yvelocity", rBody.velocity.y);
+
         //anim.SetBool("IsDecending", isDecending);
 
         if (Input.GetButtonDown("Jump") && isOnGround)
@@ -189,7 +217,6 @@ public class PlayerController2 : MonoBehaviour
         if (Input.GetButtonDown("Vision"))
         {
             ToggleSkill("Vision");
-            Debug.Log(activeSkills["Vision"]);
         }
 
         if (activeSkills.ContainsValue(true))
@@ -212,20 +239,23 @@ public class PlayerController2 : MonoBehaviour
         if (activeSkills["Speed"])
         {
             VampSpeed(true);
+            isVampSpdEnabled = true;
         }
-        else { VampSpeed(false); }
+        else
+        {
+            VampSpeed(false);
+            isVampSpdEnabled = false;
+        }
 
-        //GameObject vvTrue = GameObject.FindGameObjectWithTag("vvTrue");
-        //if (activeSkills["Vision"])
-        //{
-        //    Debug.Log("FOUND IT22");
-        //    toggleHidden(false);
-        //}
-        //else
-        //{
-        //    toggleHidden(true);
+        if (activeSkills["Vision"])
+        {
+            toggleHidden(false);
+        }
+        else
+        {
+            toggleHidden(true);
 
-        //}
+        }
     }
 
     private void ToggleSkill(string skillName)
@@ -250,12 +280,10 @@ public class PlayerController2 : MonoBehaviour
             if (bloodAmount >= totalBloodCost)
             {
                 bloodAmount -= totalBloodCost;
-                Debug.Log("Blood spent: " + totalBloodCost + " | Remaining blood: " + bloodAmount);
                 yield return new WaitForSeconds(0.2f);
             }
             else
             {
-                Debug.Log("Not enough blood!");
                 StopAllSkills();
                 break;
             }
@@ -293,16 +321,22 @@ public class PlayerController2 : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject obj = GameObject.FindGameObjectWithTag("Object");
-        Rigidbody2D rBodyObj = obj.GetComponent<Rigidbody2D>();
-
-        if (collision.gameObject.CompareTag("Object"))
+        if (obj != null)
         {
-            rBodyObj.isKinematic = true;
+
+            Rigidbody2D rBodyObj = obj.GetComponent<Rigidbody2D>();
+            if (collision.gameObject.CompareTag("Object"))
+            {
+                rBodyObj.isKinematic = true;
+            }
         }
+
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("bumped to enemy");
             collidedWithEnemy = true;
+            anim.ResetTrigger("HurtEnded");
+            anim.SetTrigger("Hurt");
         }
     }
 
@@ -316,8 +350,10 @@ public class PlayerController2 : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("bumped to enemy");
             collidedWithEnemy = false;
+            anim.ResetTrigger("Hurt");
+            anim.SetTrigger("HurtEnded");
+
         }
     }
 
@@ -339,6 +375,10 @@ public class PlayerController2 : MonoBehaviour
         if (collision.gameObject.CompareTag("Scene"))
         {
             changeScene(collision.gameObject.name);
+        }
+        if (collision.gameObject.CompareTag("Puzzle"))
+        {
+            interactWithPuzzle = true;
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -388,7 +428,6 @@ public class PlayerController2 : MonoBehaviour
 
     IEnumerator Damage(float damage)
     {
-        Debug.Log("got into coroutine");
         damageCoroutineStarted = true;
         while (collidedWithEnemy)
         {
@@ -497,45 +536,83 @@ public class PlayerController2 : MonoBehaviour
         {
             if (!NotesController.instance.isNoteOpen)
             {
-                //    // If the note is already open, go to the next page
-                //    NotesController.instance.NextPage();
-                //}
-                //else
-                //{
-                //    // Open the note
                 NotesController.instance.OpenNote(currentNote.name);
-
             }
         }
+
+    }
+    private void InteractWithPuzzle()
+    {
+        if (Input.GetButtonDown("Interact") && interactWithPuzzle)
+        {
+            if (puzzlePanel != null)
+            {
+                puzzlePanel.SetActive(true);
+                inputField.Select();
+                inputField.ActivateInputField();
+                Time.timeScale = 0;
+                puzzleOpened = true;
+            }
+        }
+
+
+
+
+
     }
     private void InteractWithNPC()
     {
         if (Input.GetButtonDown("Interact") && interactWithNPC)
         {
-            Debug.Log("Interacted");
             if (!Dialogue.instance.isDialogueOpen)
             {
                 Dialogue.instance.StartDialogue(currentNPC.name);
-                Debug.Log("Start Dialogue");
 
             }
         }
     }
 
+    private void Puzzle()
+    {
+        if (Input.GetButton("Submit") && inputField.text.ToLower() == "lucem sequimur")
+        {
+            puzzlePanel.SetActive(false);
+            puzzleDoor.SetActive(false);
+            Time.timeScale = 1;
+            envelopeTrigger.enabled = false;
+        }
+        else if (Input.GetButton("Submit") && inputField.text.ToLower() != "lucem sequimur")
+        {
+            inputField.text = string.Empty;
+            inputField.Select();
+            inputField.ActivateInputField();
+        }
+        else if (Input.GetButton("Cancel"))
+        {
+            Time.timeScale = 1;
+            puzzlePanel.SetActive(false);
+
+        }
+    }
+
     private void toggleHidden(bool hidden)
     {
-        if (!hidden) //hidden layer is active and there is a request to disable it
+        if (hLayer != null)
         {
-            hLayer.transform.GetComponent<SpriteRenderer>().enabled = false;
-            hiddenLayerStatus = false;
-            return;
+            if (!hidden) //hidden layer is active and there is a request to disable it
+            {
+                hLayer.transform.GetComponent<TilemapRenderer>().enabled = false;
+                hiddenLayerStatus = false;
+                return;
+            }
+
+            if (hidden) //hidden layer is closed and there is a request to enable it
+            {
+                hLayer.transform.GetComponent<TilemapRenderer>().enabled = true;
+                hiddenLayerStatus = true;
+                return;
+            }
         }
 
-        if (hidden) //hidden layer is closed and there is a request to enable it
-        {
-            hLayer.transform.GetComponent<SpriteRenderer>().enabled = true;
-            hiddenLayerStatus = true;
-            return;
-        }
     }
 }
